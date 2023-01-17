@@ -1,23 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react'
+import axios from 'axios';
+import { Cols,Row,Rows } from "react-bootstrap"
 
 
 
 
 
 
+ export const HomeScreen=()=>{
+  
+  const [product_list,setProducts]=useState([])
 
-export const HomeScreen = ()=>{
-    const fakedata =fetch('my-app/public/products.json')
-        console.log(fakedata)
+  useEffect(()=>{
+      const fetchProducts=async()=>{
+          const result= await axios.get('https://dummyjson.com/products')
+          setProducts(result.data.products) 
+
+      }
+      fetchProducts()
+    },[])
+
+  console.log(product_list ,"hey");
+  const products= product_list.map(product => product.title)
+  console.log(products)
 return(
-    <div>
+<div>
+<div><title>Shosi shose</title></div>
+  <Row>
 
-  <h1>Shosi shoes</h1>
-   
-    
-    </div>
-    )
-
+  
+  
+  </Row>
+ 
+</div>)
 
 }
