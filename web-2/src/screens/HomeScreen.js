@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios';
 import { Cols,Row,Rows } from "react-bootstrap"
+import { Product } from '../components/Product';
 
 
 
@@ -27,11 +28,10 @@ import { Cols,Row,Rows } from "react-bootstrap"
 return(
 <div>
 <div><title>Shosi shose</title></div>
-  <Row>
+    <Row>
+      <Product product={product_list}></Product>
 
-  
-  
-  </Row>
+    </Row>
  
 </div>)
 
