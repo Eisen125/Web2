@@ -9,30 +9,33 @@ import { Product } from '../components/Product';
 
 
 
- export const HomeScreen=()=>{
+export const HomeScreen = () => {
   
-  const [product_list,setProducts]=useState([])
+  const [product_list, setProducts] = useState([])
+  let products = [];
 
-  useEffect(()=>{
-      const fetchProducts=async()=>{
-          const result= await axios.get('https://dummyjson.com/products')
-          setProducts(result.data.products) 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      await axios.get('https://dummyjson.com/products').then((result) => {
+        setProducts(result.data.products);
+        products = product_list.map(product => product.title)
+      });
+    }
+    fetchProducts()
+  }, [])
 
-      }
-      fetchProducts()
-    },[])
+  /*console.log(product_list, "hey");
+  
+  console.log(products)*/
+  return (
+    <div>
+      <div><title>Shosi shose</title></div>
+      <Row>
+        
+        <Product index={0} product={product_list}></Product>
 
-  console.log(product_list ,"hey");
-  const products= product_list.map(product => product.title)
-  console.log(products)
-return(
-<div>
-<div><title>Shosi shose</title></div>
-    <Row>
-      <Product product={product_list}></Product>
-
-    </Row>
+      </Row>
  
-</div>)
+    </div>)
 
 }
