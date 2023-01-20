@@ -16,7 +16,7 @@ export const generateJwtToken = (user) => {
   export const isAuthenticate = (req, res, next) => {
     const authorization = req.headers.authorization;
     if (authorization) {
-      const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
+      const token = authorization.slice(7, authorization.length); 
       jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
         if (err) {
           res.status(401).send({ message: 'Invalid Token' });
