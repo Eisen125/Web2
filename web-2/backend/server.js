@@ -4,11 +4,11 @@ import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import seedRouter from './routes/seedRoutes.js';
-import productRouter from './routes/productRoutes.js';
-import userRouter from './routes/userRoutes.js';
-import orderRouter from './routes/orderRoutes.js';
-import uploadRouter from './routes/uploadRoutes.js';
+import seedRouter from './routers/seedsRouters.js';
+import productRouter from './routers/productRouters.js';
+import userRouter from './routers/userRouters.js';
+import orderRouter from './routers/orderRouters.js';
+import uploadRouter from './routers/uploadRouters.js';
 import cors from 'cors'
 
 dotenv.config();
