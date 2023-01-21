@@ -2,10 +2,12 @@ import { useEffect, useReducer } from 'react';
 // import { Link } from 'react-router-dom';
 import axios from 'axios';
 import logger from 'use-reducer-logger';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+// import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/esm/Col';
 import Product from '../components/Product';
-
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import Row from 'react-bootstrap/esm/Row';
 
 
 const reducer = (state, action) => {
@@ -34,10 +36,10 @@ const reducer = (state, action) => {
         try {
           const categories = ["womens-shoes","mens-shoes"]
           categories.forEach(async (catagory)=> {
-              const dummyresult = await axios.get('https://dummyjson.com/products/category/'+catagory+'?limit=15');
+              const dummyresult = await axios.get('https://dummyjson.com/products/category/'+catagory+'?limit=20');
               dummyresult.data.products.forEach(elm => {
                   payload.push({
-                      image: elm.images[0],
+                      image: elm.images[1],
                       slug: elm.id,
                       name: elm.title,
                       rating: elm.rating,
@@ -60,21 +62,28 @@ const reducer = (state, action) => {
       };
       fetchData();
     }, []);
+   
     return (
       <div>
        
-          <title>Cool Shoes Store</title>
-        <h1>All Products</h1>
+        <h1>Cool shoes Store</h1>
+        <h2>All Products</h2>
+        
         <div className="products">
-            
-            <Row>
-              {products.map(product => {return (<Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
-                    <Product product={product}></Product>
-              </Col>)}
-               
-                
-              )}
-            </Row>
+        {loading ? (
+          <LoadingBox />
+        ) : error ? (
+          <MessageBox variant="danger">{error}</MessageBox>
+        ) : (
+          <Row>
+            {products.map((product) => (
+              <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
+                <Product product={product}></Product>
+              </Col>
+            ))}
+          </Row>
+        )}
+
         </div>
       </div>
     );

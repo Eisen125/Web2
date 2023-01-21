@@ -26,16 +26,23 @@ function Product({product}){
           type: 'CART_ADD_ITEM',
           payload: { ...item, quantity },
         });
+        
       };
     
-
+      
 
     return (
-        <Card style={{ height: '620px' }}>
-          <img src={product.image} className="card-img-top" alt={product.name} />
-        <Card.Body>
-            <Card.Title>{product.name}</Card.Title>
-          <Card.Text>${product.price}</Card.Text>
+        <Card style={{minHeight: '480px'  }}>
+        <Link to={`/product/${product.slug}`}>
+        <img src={product.image} className="card-img-top" alt={product.name} />
+      </Link>
+      <Card.Body>
+        <Link to={`/product/${product.slug}`}>
+          <Card.Title>{product.name}</Card.Title>
+        </Link>
+        {/* <Rating rating={product.rating} numReviews={product.numReviews} /> */}
+        <Card.Text>${product.price}</Card.Text>
+        
           {product.countInStock === 0 ? (
             <Button variant="danger" disabled>
               Out of Stock
