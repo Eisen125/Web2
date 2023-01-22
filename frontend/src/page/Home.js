@@ -78,7 +78,7 @@ export const Home = () => {
       <div className="row product-slider">
       {console.log(state.loading)}
             {!state.loading ? state.recentlyViewed.map((product) => (
-          <div className="d-none col-lg-3 col-md-4 col-sm-5 p-3">
+          <div className="col-lg-3 col-md-4 col-sm-5 p-3">
           <ProductCard
             key={product.id}
             product={product}
