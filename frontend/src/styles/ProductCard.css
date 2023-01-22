@@ -1,16 +1,23 @@
 .product-card {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease-in-out;
+    width: 200px;
+    display: inline-block;
+    position: relative; /* sets the position of the card to be relative */
+    z-index: 1;
   }
   
   .product-card:hover {
     transform: scale(1.05);
+    z-index: 10;
   }
+
   
   .product-card .card-img-top {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    overflow: hidden;
   }
   
   .product-card .card-body {
@@ -32,3 +39,8 @@
     border-color: #6e4c5a;
   }
   
+  .product-slider {
+    width: 100%;
+    text-align: center;
+  }
+

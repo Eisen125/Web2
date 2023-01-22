@@ -18,12 +18,12 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={Home} />
-        <Route path="/about" element={About} />
-        <Route path="/products" element={Products} />
-        <Route path="/product/:id" element={Product} />
-        <Route path="/cart" element={Cart} />
-        <Route path="/loginpage" element={LoginPage} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/loginpage" element={<LoginPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
