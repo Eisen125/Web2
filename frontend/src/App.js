@@ -12,6 +12,7 @@ import { Cart } from "./page/Cart";
 import { LoginPage } from "./page/LoginPage";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
+import { Login } from "./components/Login";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/loginpage" element={<LoginPage />} />
+        <Route path="/users/newUser" element={<Login/>}/>
       </Routes>
       <Footer />
     </BrowserRouter>
