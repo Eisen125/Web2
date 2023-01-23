@@ -42,16 +42,12 @@ import { test } from '../apiCalls';
       email,
       password
     })
-    if (res == 402)
-    {
-      setExist(true)
-    }
     console.log(res);
   };
 
 
   return (
-    <>
+    
     <form onSubmit={handleSubmit}>
       <input
         type="email"
@@ -70,7 +66,7 @@ import { test } from '../apiCalls';
       </button>
       {error && <p>{error.message}</p>}
     </form>
-    {exist && <h2>User already exists !</h2>}
-    </>
+
+
   );
 };

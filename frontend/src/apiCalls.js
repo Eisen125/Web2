@@ -4,10 +4,9 @@ const BASE_URL = 'http://localhost:3000'
 export const test = async(user) => {
 try {
     const res = await axios.post(BASE_URL+"/users/newUser",user)
-    if(res.status == 402){
-        return res.status
-    }
+    console.log(res);
     return res.data
+   
 } catch (error) {
     console.log(error);
 }

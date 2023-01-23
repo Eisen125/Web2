@@ -1,16 +1,9 @@
 import User from '../models/usersModel.js'
-import { CreateNewUser,SignInExistingUser } from '../firebase.js'
+import { CreateNewUser,SignInExistingUser} from '../firebase.js'
 
 
 //create new user function
 export const newUser=async(req,res)=>{
-   try{
-    const exist = User.findOne({email:req.body.email})
-    if (exist){
-        res.status(402).send('user already exists !')
-        
-        return;
-    }
     console.log("in user route !");
     console.log(req.body);
     const {email,password,userName}=req.body;
@@ -27,9 +20,7 @@ export const newUser=async(req,res)=>{
     });
     newUser.save()
     res.send(newUser)
-   }catch (error) {
-    res.send(error);
-  }
+   
 };
 
 export const existUser=async(req,res)=>{
