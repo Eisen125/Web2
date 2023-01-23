@@ -1,6 +1,6 @@
 import   Axios from 'axios';
 import { useState } from 'react';
-
+import { test } from '../apiCalls';
 
 // // Initialize Firebase
 // const firebaseConfig = {
@@ -22,6 +22,7 @@ import { useState } from 'react';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [exist,setExist] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
 
   const  handleSubmit =  async e => {
@@ -37,15 +38,20 @@ import { useState } from 'react';
     //     setError(error);
     //     setIsLoading(false);
     //   });
-    Axios.post('/users/newUser',{
+    const res = await test({ 
       email,
       password
-    }).then(res=>{console.log('sec',res.data);}).catch(err=>{console.log(err);})
-
+    })
+    if (res == 402)
+    {
+      setExist(true)
+    }
+    console.log(res);
   };
 
 
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <input
         type="email"
@@ -64,5 +70,7 @@ import { useState } from 'react';
       </button>
       {error && <p>{error.message}</p>}
     </form>
+    {exist && <h2>User already exists !</h2>}
+    </>
   );
 };

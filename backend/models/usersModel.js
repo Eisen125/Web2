@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema(
       fireBaseId:String,
       name: {
         type: String,
-        required: true,
       },
       email: {
         type: String,
