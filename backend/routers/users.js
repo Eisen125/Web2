@@ -3,7 +3,7 @@ import { Router } from "express";
 
 const router=Router();
  router.post('/newUser',newUser);
- router.post('/users/existUser',existUser);
+ router.post('/existUser',existUser);
 
  
 

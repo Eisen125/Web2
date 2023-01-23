@@ -4,6 +4,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+ 
 } from "firebase/auth";
 
 // Initialize Firebase
@@ -17,7 +18,6 @@ const firebaseConfig = {
     measurementId: "G-70EYZBW63L"
   };
   
-
 let app = initializeApp(firebaseConfig);
 let auth = getAuth(app);
 
@@ -39,3 +39,5 @@ export const SignInExistingUser=async(email,password)=>{
         }
     }catch(error){console.log(error);}
 }
+
+

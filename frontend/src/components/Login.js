@@ -1,48 +1,22 @@
-import   Axios from 'axios';
+
 import { useState } from 'react';
-import { test } from '../apiCalls';
-
-// // Initialize Firebase
-// const firebaseConfig = {
-//     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-//     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-//     databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-//     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-//     storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-//     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-//     appId: process.env.REACT_APP_FIREBASE_APP_ID
-//   };
-  
-
-// firebase.initializeApp(firebaseConfig);
-
-// const auth = firebase.auth();
+import { existUser } from '../apiCalls';
 
  export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const [exist,setExist] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
 
   const  handleSubmit =  async e => {
     e.preventDefault();
     setIsLoading(true);
-    // auth
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then(() => {
-    //     setIsLoading(false);
-    //     // Redirect to the home page or any other page
-    //   })
-    //   .catch(error => {
-    //     setError(error);
-    //     setIsLoading(false);
-    //   });
-    const res = await test({ 
+ 
+    const res = await existUser({ 
       email,
       password
     })
-    console.log(res);
+    console.log(res,"this is from login");
   };
 
 

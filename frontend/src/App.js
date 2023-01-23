@@ -13,6 +13,7 @@ import { LoginPage } from "./page/LoginPage";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { Login } from "./components/Login";
+import { Signin } from "./components/Signin";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/loginpage" element={<LoginPage />} />
         <Route path="/login" element={<Login/>}/>
+        <Route path="/signin" element={<Signin/>}/>
       </Routes>
       <Footer />
     </BrowserRouter>
