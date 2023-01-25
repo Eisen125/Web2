@@ -76,7 +76,6 @@ export const Home = () => {
     <div className="home-container">
       <h2>Recently Viewed</h2>
       <div className="row product-slider">
-      {console.log(state.loading)}
             {!state.loading ? state.recentlyViewed.map((product) => (
           <div className="col-lg-3 col-md-4 col-sm-5 p-3">
           <ProductCard
