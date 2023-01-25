@@ -6,10 +6,10 @@ export const newUser=async(req,res)=>{
     console.log("in user route !");
     console.log(req.body);
     const {email,password}=req.body;
-    if(existUser(req.body.email,req.body.password)){
-       res.send('user exist')
-       return;
-    }
+    // if(existUser(req.body.email,req.body.password)){
+    //    res.send('user exist')
+    //    return;
+    // }
     console.log(email + ","+ password);
     //send data to firebase auth users
     const userRes=await CreateNewUser(email,password);
@@ -25,9 +25,11 @@ export const newUser=async(req,res)=>{
     res.send(newUser)
 };
 export const existUser=async(email,password)=>{
+        console.log('this is from exist user');
         const exist=await SignInExistingUser(email,password);
+        console.log(exist.firebaseId);
         if(exist!==undefined){
-            console.log(exist,'alredy exist');
+            console.log(exist.firebaseId,'alredy exist');
             return true;
         }
         return false;

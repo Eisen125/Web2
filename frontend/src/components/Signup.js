@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { newUser } from "../apiCalls";
-import { Home } from "../page/Home";
 
-export const Signin = () => {
+export const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +17,6 @@ export const Signin = () => {
         console.log(res,"this is from signin");
       };
 
-    
     return (
       <>
       <form onSubmit={handleSubmit}>
@@ -38,7 +36,7 @@ export const Signin = () => {
           {isLoading ? 'Loading...' : 'Signin'}
         </button>
       </form>
-      
+
       </>
   
     );

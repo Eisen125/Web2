@@ -21,7 +21,6 @@ import { existUser } from '../apiCalls';
 
 
   return (
-    
     <form onSubmit={handleSubmit}>
       <input
         type="email"
@@ -40,7 +39,5 @@ import { existUser } from '../apiCalls';
       </button>
       {error && <p>{error.message}</p>}
     </form>
-
-
   );
 };

@@ -32,10 +32,9 @@ export const CreateNewUser=async(email,password)=>{
 
 export const SignInExistingUser=async(email,password)=>{
     try{
-        
         const existUser=await signInWithEmailAndPassword(auth,email,password);
         return{
-            firebaseId: existUser.user.uid,
+            firebaseId: existUser.user.uid
         }
     }catch(error){console.log(error);}
 }

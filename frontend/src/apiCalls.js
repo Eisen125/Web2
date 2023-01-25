@@ -11,7 +11,6 @@ try {
     console.log(error);
 }
 }
-
 export const existUser=async(user)=>{
     try{
     const res=await axios.post(BASE_URL+'/users/existUser',user)
@@ -20,5 +19,4 @@ export const existUser=async(user)=>{
     }catch (error) {
     console.log(error);
     }
-    
 }
