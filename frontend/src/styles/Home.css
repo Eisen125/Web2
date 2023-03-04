@@ -17,4 +17,41 @@
     background-color: #f5f5f5;
   }
   
+  .social-container {
+    background: #eee;
+    padding: 25px 50px;
+  }
+  a.social:hover {
+    transform: translateY(-2px);
+  }
+  .footer-title {
+    color: #008491;
+  }
+  a.youtube {
+    color: #eb3223;
+    margin: 0 0.5rem;
+  }
   
+  a.facebook {
+    color: #4968ad;
+    margin: 0 0.5rem;
+
+  }
+  
+  a.twitter {
+    color: #49a1eb;
+    margin: 0 0.5rem;
+
+  }
+  
+  a.instagram {
+    color:#8D5D65;
+    margin: 0 0.5rem;
+  }
+  .footer-container{
+    margin: 0 0.5rem;
+    transition: transform 250ms;
+    text-align: center;
+  }
+  .footer-container:hover{
+  }
