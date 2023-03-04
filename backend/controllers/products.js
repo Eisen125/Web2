@@ -3,5 +3,6 @@ export const products = async (req, res) => {
 }
 
 export const someFunction = (req, res) => {
-    res.send("editUser");
+    res.send("editProduct");
   };
+

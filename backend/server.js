@@ -5,13 +5,9 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors'
 import bodyParser from 'body-parser';
-const app = express()
-const port = 3000
-app.use(cors())
-app.use(bodyParser.json())
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+import { initializeApp } from "firebase/app";
+import {firebase} from "firebase"
+import { getAnalytics } from "firebase/analytics";
 
 app.use('/products',routerProducts);
 app.use('/users',routerUsers);
