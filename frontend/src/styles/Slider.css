@@ -1,0 +1,32 @@
+.prev-button{
+    background-image: url('../images/arrow_back.svg');
+    width: 48px;
+    margin-left: 2.5%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    background-color: #ffffff00;
+    filter: invert(30%) sepia(26%) saturate(6797%) hue-rotate(166deg) brightness(91%) contrast(101%);
+}
+
+.next-button{
+    background-image: url('../images/arrow_forward.svg');
+    width: 48px;
+    margin-right: 2.5%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    background-color: #ffffff00;
+    filter: invert(30%) sepia(26%) saturate(6797%) hue-rotate(166deg) brightness(91%) contrast(101%);
+}
+
+  
+.product-slider {
+    width: 91%;
+    text-align: center;
+    scroll-behavior: smooth;
+}
+
+.row{
+flex-wrap: nowrap;
+}
