@@ -2,15 +2,12 @@ import React, { Row, Col, useState, useEffect } from "react";
 import { useReducer } from "react"; 
 import axios from 'axios';
 import { ProductCard } from '../components/ProductCard';
-import '../styles/Home.css'
-import Swiper from 'swiper';
+import '../styles/Home.css';
 import { Slider } from "../components/Slider";
 
 const initialState = {
   featuredProducts: [],
-  recentlyViewed: new Swiper('.swiper-container', {
-    // Swiper options go here
-  }),
+  recentlyViewed: [],
   nowTrending: [],
   bestSelling: [],
   loading: true,
@@ -76,7 +73,7 @@ export const Home = () => {
   }, []);
   
   return (
-    <div className="home-container">
+    <div className="home-container content-area">
       <Slider name={'Recently Viewed'} array={state.recentlyViewed} loading={state.loading} />
       <Slider name={'Now Trending'} array={state.nowTrending} loading={state.loading} />
       <Slider name={'Best Selling'} array={state.bestSelling} loading={state.loading} />

@@ -21,7 +21,7 @@ import { existUser } from '../apiCalls';
 
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='content-area' onSubmit={handleSubmit}>
       <input
         type="email"
         value={email}

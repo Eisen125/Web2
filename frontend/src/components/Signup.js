@@ -19,7 +19,7 @@ export const Signup = () => {
 
     return (
       <>
-      <form onSubmit={handleSubmit}>
+      <form className='content-area' onSubmit={handleSubmit}>
         <input
           type="email"
           value={email}
@@ -33,7 +33,7 @@ export const Signup = () => {
           placeholder="Password"
         />
         <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Loading...' : 'Signin'}
+          {isLoading ? 'Loading...' : 'Signup'}
         </button>
       </form>
 

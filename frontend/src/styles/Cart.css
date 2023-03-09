@@ -1,0 +1,40 @@
+.emptyCart p {
+    font-size: 1.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.emptyCart{
+    position: inherit;
+    padding-top: 9%;
+}
+
+.emptyCart span {
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.emptyCart button {
+    font-size: 1.5rem;
+    font-style: italic;
+    text-align: center;
+    display: block;
+    margin: auto;
+}
+
+.btn-primary {
+    background-color: #8D5D65;
+    border-color: #8D5D65;
+  }
+  
+.btn-primary:hover {
+    background-color: #6e4c5a;
+    border-color: #6e4c5a;
+}
+
+.emptyCart a {
+    text-decoration: none;
+}
