@@ -31,7 +31,7 @@ import { existUser } from '../apiCalls';
       <input
         type="password"
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={e=> setPassword(e.target.value)}
         placeholder="Password"
       />
       <button type="submit" disabled={isLoading}>
