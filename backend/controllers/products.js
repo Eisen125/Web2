@@ -1,3 +1,6 @@
+// create new product 
+//delete product 
+
 export const products = async (req, res) => {
     res.send("products");
 }

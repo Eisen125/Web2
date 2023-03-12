@@ -1,18 +1,34 @@
-import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faYoutube,
-  faFacebook,
-  faTwitter,
-  faInstagram
-} from "@fortawesome/free-brands-svg-icons";
-export const Footer = () => {
+  import React from 'react'
+  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+  import io from 'socket.io-client';
+  import { useState, useEffect } from 'react';
+
+  import {
+    faYoutube,
+    faFacebook,
+    faTwitter,
+    faInstagram
+  } from "@fortawesome/free-brands-svg-icons";
+
+  const socket=io('http://127.0.0.1:5050');
+  export const Footer = () => {
+    const [weatherData, setWeatherData] = useState('');
+
+    useEffect(() => {
+      socket.on('weatherData', setWeatherData);
+      console.log(weatherData,'weather');
+      return () => {
+        socket.off('weatherData', setWeatherData);
+      };
+    }, []);
+
+ 
   return (
     <div className='footer-container'>
       <h2 className='footer-title'> visit us at social media</h2>
     <a href="https://www.youtube.com"
         className="youtube social">
-        <FontAwesomeIcon icon={faYoutube} size="2x" />
+        <FontAwesomeIcon icon={faYoutube} size="2x"/>
       </a>
       <a href="https://www.facebook.com/learnbuildteach/"
         className="facebook social">
@@ -25,6 +41,14 @@ export const Footer = () => {
         className="instagram social">
         <FontAwesomeIcon icon={faInstagram} size="2x" />
       </a>
-    </div>
+      {weatherData ? (
+        <>
+          <p>Temperature: {weatherData.temperature} °C</p>
+          <p>Description: {weatherData.description}</p> 
+        </>
+         ) : (
+          <p>Loading...</p>
+        )}
+      </div>
   )
 }

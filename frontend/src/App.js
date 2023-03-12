@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import "./styles/colors.css";
 import "./App.css";
 import { Home } from "./page/Home";
@@ -14,11 +14,13 @@ import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { Login } from "./components/Login";
 import { Signup } from "./components/Signup";
+import { useContext, useEffect, useState } from 'react';
+
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+    <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -27,7 +29,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/loginpage" element={<LoginPage />} />
         <Route path="/login" element={<Login/>}/>
-        <Route path="/signin" element={<Signup/>}/>
+        <Route path="/signup" element={<Signup/>}/>
       </Routes>
       <Footer />
     </BrowserRouter>

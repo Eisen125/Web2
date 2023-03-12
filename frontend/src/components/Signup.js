@@ -14,7 +14,7 @@ export const Signup = () => {
           email,
           password
         })
-        console.log(res,"this is from signin");
+        console.log(res,"this is from signup");
       };
 
     return (
@@ -33,7 +33,7 @@ export const Signup = () => {
           placeholder="Password"
         />
         <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Loading...' : 'Signin'}
+          {isLoading ? 'Loading...' : 'Signup'}
         </button>
       </form>
 
