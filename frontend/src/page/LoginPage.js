@@ -5,6 +5,6 @@ export const LoginPage = () => {
   
 
   return (
-    <div>LoginPage</div>
+    <div className='content-area'>LoginPage</div>
   )
 }

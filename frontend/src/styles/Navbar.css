@@ -1,0 +1,112 @@
+.navbar {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+  }
+  
+  .navbar-brand {
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .logo {
+    margin: 0;
+  }
+
+  .search-bar{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .nav-link {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #212529;
+    padding: 10px 20px;
+  }
+  
+  .nav-link:hover {
+    color: #8D5D65;
+  }
+  
+  .form-control {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    min-width: 214px !important;
+    border-radius: 30px;
+    border-color: #ced4da;
+  }
+
+  .item-with-name-and-icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+  .btn-outline-success {
+    border-radius: 30px;
+  }
+  
+  .btn-outline-secondary {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+  
+  .input-group-append button {
+    background-color: #8D5D65;
+    border-color: #8D5D65;
+  }
+
+  .input-group-append button:hover {
+    background-color: #6e4c5a;
+    border-color: #6e4c5a;
+  }
+  
+  .input-group-append button i {
+    font-size: 18px;
+    color: #fff;
+  }
+
+  .navbar-nav .search-bar input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  color: red;
+}
+  .navbar-nav .search-bar input:focus {
+    outline: none;
+    border-color: #008491;
+    box-shadow: 0 0 0.5rem 0 #0085917b;
+  }
+
+  .navbar-nav .nav-item {
+    margin-right: 20px;
+  }
+
+  .input-group{
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  
+  .navbar-nav.ml-auto .nav-link {
+    padding: 0;
+    color: #000000;
+  }
+  
+  .navbar-nav.ml-auto .nav-link:hover {
+    color: #8D5D65;
+  }
+  
+  .fa-shopping-cart {
+    font-size: 22px;
+    color: #000000;
+  }
+  

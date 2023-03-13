@@ -1,21 +1,16 @@
 .home-container {
-    overflow: auto;
-    max-width: 100%;
-  }
+  overflow: auto;
+  max-width: 100%;
+}
 
-  .col {
-    display: flex;
-    align-items: center;
+.col {
+  display: flex;
+  align-items: center;
 }
 
 .home-container h2 {
     color: #008491;
-  }
-  
-  
-  .home-container {
-    background-color: #f5f5f5;
-  }
+}
   
   .social-container {
     background: #eee;

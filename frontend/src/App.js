@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import "./styles/colors.css";
 import "./App.css";
 import { Home } from "./page/Home";
-import { About } from "./page/About";
+import { Statistics } from "./page/Statistics";
 import { Products } from "./components/Products";
 import { Product } from "./components/Product";
 import { Cart } from "./page/Cart";
@@ -23,13 +23,13 @@ function App() {
     <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/statistics" element={<Statistics />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/loginpage" element={<LoginPage />} />
         <Route path="/login" element={<Login/>}/>
-        <Route path="/signup" element={<Signup/>}/>
+        <Route path="/signup" element={<Signup />} />
       </Routes>
       <Footer />
     </BrowserRouter>

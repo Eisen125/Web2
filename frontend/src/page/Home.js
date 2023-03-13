@@ -2,7 +2,8 @@ import React, { Row, Col, useState, useEffect } from "react";
 import { useReducer } from "react"; 
 import axios from 'axios';
 import { ProductCard } from '../components/ProductCard';
-import '../styles/Home.css'
+import '../styles/Home.css';
+import { Slider } from "../components/Slider";
 
 const initialState = {
   featuredProducts: [],
@@ -33,7 +34,6 @@ const reducer = (state, action) => {
 
 export const Home = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'SET_RECENTLY_VIEWED' });
@@ -73,44 +73,10 @@ export const Home = () => {
   }, []);
   
   return (
-    <div className="home-container">
-      <h2>Recently Viewed</h2>
-      <div className="row product-slider">
-            {!state.loading ? state.recentlyViewed.map((product) => (
-          <div className="col-lg-3 col-md-4 col-sm-5 p-3">
-          <ProductCard
-            key={product.id}
-            product={product}
-            className="product-shadow"
-            onHover={() => {/* handle hover event */}}
-            onLeave={() => {}}
-          />
-        </div>
-            )) : ''}
-        </div>
-      <h2>Now Trending</h2>
-      <div className="product-slider">
-        {state.nowTrending.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            className="product-shadow"
-            onHover={() => {/* handle hover event */}}
-          />
-        ))}
-      </div>
-
-      <h2>Best Selling</h2>
-      <div className="product-slider">
-        {state.bestSelling.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            className="product-shadow"
-            onHover={() => {/* handle hover event */}}
-          />
-        ))}
-      </div>
+    <div className="home-container content-area">
+      <Slider name={'Recently Viewed'} array={state.recentlyViewed} loading={state.loading} />
+      <Slider name={'Now Trending'} array={state.nowTrending} loading={state.loading} />
+      <Slider name={'Best Selling'} array={state.bestSelling} loading={state.loading} />
     </div>
   );
 };

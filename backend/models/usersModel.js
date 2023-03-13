@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema(
     {
-      fireBaseId:String,
+      fireBaseId:String,  
       name: {
         type: String,
       },
