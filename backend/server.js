@@ -13,7 +13,6 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 const server = http.createServer(app);
 const io = new Server(server,{ cors: { origin: '*' } });
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
@@ -29,7 +28,7 @@ app.use((err, req, res, next) => {
 
 const getWeatherData = async () => {
   try {
-    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=London&appid=f4d39e1dce87645a615f46573e45bf34&lang=he&units=metric`);
+    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=Yavne&appid=f4d39e1dce87645a615f46573e45bf34&lang=en&units=metric`);
     const data = response.data;
     console.log(response.status);
     console.log(data,"this is data");
@@ -43,7 +42,6 @@ const getWeatherData = async () => {
     return null;
   }
 };
-
 
 setInterval(async () => {
   const weatherData = await getWeatherData();

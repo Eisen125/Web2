@@ -22,6 +22,14 @@ export const existUser=async(user)=>{
     console.log(error);
     }
 }
+export const DeleteUser=async(user)=>{
+    try {
+        const res=await axios.delete(BASE_URL+'/users/deleteUser',user)
+        return res.data
+    } catch (error) {
+    console.log(error);
+    }
+}
 
 
 
