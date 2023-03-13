@@ -31,6 +31,14 @@ export const DeleteUser=async(user)=>{
     }
 }
 
+export const Findproducts=async(filter)=>{
+    try {
+        const result=await axios.post(BASE_URL+'/products',filter)
+        return result.data
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 

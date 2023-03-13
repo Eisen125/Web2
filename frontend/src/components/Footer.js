@@ -46,7 +46,7 @@
       {weatherData ? (
         <>
           <p>Temperature: {weatherData.temperature} °C</p>
-          <p>Description: {weatherData.description}</p> 
+          {/* <p>Description: {weatherData.description}</p>  */}
         </>
          ) : (
           <p>Loading...</p>

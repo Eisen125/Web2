@@ -34,7 +34,7 @@ const getWeatherData = async () => {
     console.log(data,"this is data");
     const weatherData = {
       temperature: response.data.main.temp,
-      description: data.weather[0].description,
+      // description: data.weather[0].description,
     };
     return weatherData;
   } catch (error) {
