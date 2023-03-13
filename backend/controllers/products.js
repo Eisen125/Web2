@@ -3,7 +3,7 @@ import { async } from '@firebase/util';
 import Product from '../models/productModel.js'
 
 export const Findproducts = async (req, res) => {
-    const products = await Product.find({});
+    const products = await Product.find();
     console.log("this is from find",products);
     res.send(products);
   };

@@ -41,12 +41,12 @@ export const Home = () => {
       dispatch({ type: 'SET_LOADING' });
       const payload = []
       try {
-        
         const categories = ["womens-shoes", "mens-shoes"]
         for (const catagory of categories) {
           //const dummyresult = await axios.get('https://dummyjson.com/products/category/' + catagory + '?limit=20');
-          const result=Findproducts()
-          console.log(result);
+          const result= await Findproducts()
+          console.log("result from home",result);
+
           result.forEach(elm => {
             payload.push({
               image: elm.image,
@@ -61,7 +61,7 @@ export const Home = () => {
             
           })
         }
-       console.log(payload);
+       
         dispatch({ type: 'SET_RECENTLY_VIEWED', payload: payload });
         dispatch({type: 'SET_LOADED'})
         console.log(state.recentlyViewed);
