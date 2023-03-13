@@ -1,8 +1,11 @@
 import React from 'react';
+import { useContext } from 'react';
+
+import axios from 'axios';
 import '../styles/ProductCard.css';
 
 export const ProductCard = ({ product, className, onHover }) => {
-  
+ 
   return (
     <div
       className={`card product-card ${className}`}

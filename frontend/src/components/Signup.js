@@ -14,7 +14,7 @@ export const Signup = () => {
           email,
           password
         })
-        console.log(res,"this is from signin");
+        console.log(res,"this is from signup");
       };
 
     return (
