@@ -2,6 +2,7 @@ import React, { Row, Col, useState, useEffect } from "react";
 import { useReducer } from "react"; 
 import axios from 'axios';
 import { ProductCard } from '../components/ProductCard';
+import {Findproducts} from "../apiCalls.js"
 import '../styles/Home.css';
 import { Slider } from "../components/Slider";
 
@@ -40,26 +41,31 @@ export const Home = () => {
       dispatch({ type: 'SET_LOADING' });
       const payload = []
       try {
-        
         const categories = ["womens-shoes", "mens-shoes"]
         for (const catagory of categories) {
-          const dummyresult = await axios.get('https://dummyjson.com/products/category/' + catagory + '?limit=20');
-          dummyresult.data.products.forEach(elm => {
+          //const dummyresult = await axios.get('https://dummyjson.com/products/category/' + catagory + '?limit=20');
+          const result= await Findproducts()
+          console.log("result from home",result);
+
+          result.forEach(elm => {
             payload.push({
-              image: elm.images[1],
+              image: elm.image,
               id: elm.id,
               name: elm.title,
-              rating: elm.rating,
-              numReviews: Math.floor(Math.random() * 10000),
+              views: elm.views,
               price: elm.price,
-              countInStock: elm.stock
+              description:elm.description,
+              catagory:elm.category,
+              brand:elm.brand
             })
+            
           })
         }
        
         dispatch({ type: 'SET_RECENTLY_VIEWED', payload: payload });
         dispatch({type: 'SET_LOADED'})
         console.log(state.recentlyViewed);
+        console.log( 'payload',JSON.parse(payload));
         /*const featured = await axios.get('api/products');
          
           featured.data.forEach((elm)=>{payload.push(elm)})
