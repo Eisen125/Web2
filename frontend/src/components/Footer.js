@@ -24,7 +24,15 @@
     }, []);
 
     return (
-    <div className='footer-container'>
+      <div className='footer-container'>
+        {weatherData ? (
+        <>
+          <p className='footer-weather'>Temperature: {weatherData.temperature} °C</p>
+          {/* <p>Description: {weatherData.description}</p>  */}
+        </>
+         ) : (
+          <p>Loading...</p>
+        )}
       <h2 className='footer-title'> visit us at social media</h2>
       <div className='social-container'>
         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
@@ -43,14 +51,6 @@
             <FontAwesomeIcon icon={faInstagram} size="2x" />
         </a>
       </div>
-      {weatherData ? (
-        <>
-          <p>Temperature: {weatherData.temperature} °C</p>
-          {/* <p>Description: {weatherData.description}</p>  */}
-        </>
-         ) : (
-          <p>Loading...</p>
-        )}
     </div>
   )
 }

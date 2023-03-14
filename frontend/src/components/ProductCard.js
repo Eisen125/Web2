@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../styles/ProductCard.css';
 
 export const ProductCard = ({ product, className, onHover }) => {
-  
+  console.log(product);
   return (
     <div
       className={`card product-card ${className}`}
@@ -16,7 +16,7 @@ export const ProductCard = ({ product, className, onHover }) => {
       <div className="card-body">
         <h5 className="card-title">{product.name}</h5>
         <p className="card-text">
-          <strong>Price:</strong> {product.price}
+          <strong>Price:</strong> {product.price}$
         </p>
         <button className="btn btn-primary">Add to cart</button>
       </div>

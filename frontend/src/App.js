@@ -9,11 +9,10 @@ import { Statistics } from "./page/Statistics";
 import { Products } from "./components/Products";
 import { Product } from "./components/Product";
 import { Cart } from "./page/Cart";
-import { LoginPage } from "./page/LoginPage";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
-import { Login } from "./components/Login";
-import { Signup } from "./components/Signup";
+import { Login } from "./page/Login";
+import { Signup } from "./page/Signup";
 import { useContext, useEffect, useState } from 'react';
 
 
@@ -27,7 +26,6 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/loginpage" element={<LoginPage />} />
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup />} />
       </Routes>
