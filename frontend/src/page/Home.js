@@ -44,22 +44,21 @@ export const Home = () => {
         const categories = ["womens-shoes", "mens-shoes"]
         for (const catagory of categories) {
           //const dummyresult = await axios.get('https://dummyjson.com/products/category/' + catagory + '?limit=20');
-          const result= await Findproducts()
+          const result = await Findproducts()
           console.log("result from home",result);
 
           result.forEach(elm => {
             payload.push({
               image: elm.image,
               id: elm.id,
-              name: elm.title,
+              name: elm.name,
               views: elm.views,
               price: elm.price,
-              description:elm.description,
-              catagory:elm.category,
-              brand:elm.brand
+              description: elm.description,
+              catagory: elm.category,
+              brand: elm.brand
             })
-            
-          })
+          });
         }
        
         dispatch({ type: 'SET_RECENTLY_VIEWED', payload: payload });
