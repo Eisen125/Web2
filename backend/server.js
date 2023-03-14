@@ -1,6 +1,7 @@
 import express from 'express'
 import routerProducts from './routers/products.js'
 import routerUsers from './routers/users.js'
+import routerOrders from './routers/orders.js'
 import mongoose from 'mongoose';
 import http from 'http';
 import { Server } from 'socket.io';
@@ -22,6 +23,7 @@ mongoose.set('strictQuery', false)
 ///routers
 app.use('/products',routerProducts);
 app.use('/users',routerUsers);
+app.use('/orders', routerOrders);
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
