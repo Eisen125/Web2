@@ -62,9 +62,8 @@ export const OrderDeliveryTime=async(req,res)=>{
  
 export const CreateNewOrder = async (req, res) => {
   
-  const {userId,cartItem } = req.body;
-  console.log(cartItem);
-  console.log(userId);
+  const { userId, cartItem } = req.body;
+  
   const user= userId; // Get the user ID from the authenticated user
   const existingOrder = await Order.findOne({ user, cartItem });
   if (existingOrder) {
