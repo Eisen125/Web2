@@ -78,7 +78,8 @@ export const CreateNewOrder = async (req, res) => {
     res.status(201).json(updatedOrder);
   } else {
      let user=new User({fireBaseId:userId})
-     const newOrderItem={
+    const newOrderItem = {
+      quantity:1,
       product:new Product(
         {
         name:cartItem.name,
