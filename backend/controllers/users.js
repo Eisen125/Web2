@@ -24,15 +24,19 @@ export const newUser=async(req,res)=>{
 };
 export const existUser=async(req,res)=>{
     const {email,password}=req.body;
-    // console.log(email,"email exist");
-    // console.log(password,"password exist");
+    console.log(email,"email exist");
+    console.log(password,"password exist");
         const exist=await SignInExistingUser(email,password);
         // console.log(exist.firebaseId);
         if(exist!==undefined){
-            return true;
+            
+         res.send(true);
         }
-        return false;
-}
+        else{
+            res.send(false);
+        }
+    }
+       
 
 export const DeleteUser=async(email,password)=>{
     DeleteUserFromFireBase(email,password)

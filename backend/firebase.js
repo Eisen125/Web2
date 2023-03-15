@@ -18,8 +18,8 @@ const firebaseConfig = {
     measurementId: "G-70EYZBW63L"
   };
   
-let app = initializeApp(firebaseConfig);
-let auth = getAuth(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 export const CreateNewUser=async(email,password)=>{
     try{
@@ -33,12 +33,12 @@ export const CreateNewUser=async(email,password)=>{
 export const SignInExistingUser=async(email,password)=>{
     try{
       const existUser = await signInWithEmailAndPassword(auth, email, password);
-      console.log(auth);
-      console.log('firebase signin',existUser);
+      
+      // console.log('firebase signin',existUser.user.uid);
         return{
             firebaseId: existUser.user.uid
         }
-    }catch(error){console.log(error);}
+    }catch(error){console.log(error,"an error");}
 }
 
 

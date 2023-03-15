@@ -13,16 +13,14 @@ export const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     console.log('handle submit');
-    const res = await existUser({
-      email,
-      password,
-    });
-    console.log(res, "this is from login");
-    if(res!==null){
-      changeState();
-    }
+    const res = await existUser({email,password});
     console.log(localStorage.getItem('userState'));
+    if(res!==null){
+     changeState()
+    }
+    
     setIsLoading(false);
+    window.location='/';
   };
 
   return (

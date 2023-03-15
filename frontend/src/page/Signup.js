@@ -21,6 +21,7 @@ export const Signup = () => {
     setIsLoading(false);
     changeState();
     console.log(localStorage.getItem('userState'));
+    window.location='/';
 
   };
 

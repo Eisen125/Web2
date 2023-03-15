@@ -1,3 +1,4 @@
+import { async } from '@firebase/util';
 import Order from '../models/orderModel.js'
 import User from "../models/usersModel.js"
 
@@ -58,6 +59,40 @@ export const OrderDeliveryTime=async(req,res)=>{
     }
 }
  
+export const CreateNewOrder = async (req, res) => {
+  const { cartItems } = req.body;
+  const user = req.user._id; // Get the user ID from the authenticated user
+  const orderItems = cartItems.map(item => ({
+    user,
+    name: item.name,
+    quantity: item.quantity,
+    image: item.image,
+    price: item.price,
+    product: item.product,
+  }));
+  const existingOrder = await Order.findOne({ user, orderItems });
+  if (existingOrder) {
+  
+    existingOrder.orderItems.forEach(item => {
+      const cartItem = cartItems.find(cItem => cItem.product === item.product);
+      if (cartItem) {
+        item.quantity += 1;
+      }
+    });
+    const updatedOrder = await existingOrder.save();
+    res.status(201).json(updatedOrder);
+  } else {
+    // If no existing order, create a new one
+    const newOrder = new Order({
+      user,
+      orderItems,
+    });
+
+    const createdOrder = await newOrder.save();
+    res.status(201).json(createdOrder);
+  }
+};
+
 export const DeleteOrder=async (req,res)=>{
   const order=await Order.findById(req.body.id)
   if(order){

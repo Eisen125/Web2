@@ -15,13 +15,14 @@ try {
 }
 export const existUser = async (user) => {
     console.log('existuser');
+    console.log("this is user from apicalls",user);
+ 
     try {
-        const res = await axios.post(BASE_URL + '/users/existUser', user)
-        console.log('user login response', res)
+        const res = await axios.post(BASE_URL+'/users/existUser',user)
         return res.data
     } catch (error) {
         console.log('error');
-        // return null;
+        return null;
     }
 }
 export const DeleteUser=async(user)=>{
@@ -51,6 +52,15 @@ try{
     console.log(error);
 }
 } 
+
+export const CreateNewOrder=async(cartItems)=>{
+    try{
+        const result=await axios.post(BASE_URL+'/orders/newOrder',cartItems)
+        return result.data;
+    }catch(error){
+        console.log(error);
+    }
+}
 
 
 
