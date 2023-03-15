@@ -20,6 +20,7 @@ export const existUser=async(user)=>{
     return res.data
     }catch (error) {
     console.log(error);
+    return null;
     }
 }
 export const DeleteUser=async(user)=>{

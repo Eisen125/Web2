@@ -13,10 +13,11 @@ import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { Login } from "./page/Login";
 import { Signup } from "./page/Signup";
-import { useContext, useEffect, useState } from 'react';
+
 
 
 function App() {
+ 
   return (
     <BrowserRouter>
     <Navbar />

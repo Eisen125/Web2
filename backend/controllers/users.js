@@ -11,6 +11,7 @@ export const newUser=async(req,res)=>{
     //send data to firebase auth users
     const userRes=await CreateNewUser(email,password);
     console.log(userRes);
+    console.log(userRes.firebaseId)
     //create new user using schema 
     const newUser=new User({
         fireBaseId:userRes.firebaseId,
@@ -24,6 +25,7 @@ export const newUser=async(req,res)=>{
 export const existUser=async(email,password)=>{
         console.log('this is from exist user');
         const exist=await SignInExistingUser(email,password);
+        console.log(exist);
         console.log(exist.firebaseId);
         if(exist!==undefined){
             console.log(exist.firebaseId,'alredy exist');

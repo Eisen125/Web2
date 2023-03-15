@@ -58,3 +58,15 @@ export const OrderDeliveryTime=async(req,res)=>{
     }
 }
  
+export const DeleteOrder=async (req,res)=>{
+  const order=await Order.findById(req.body.id)
+  if(order){
+    await order.remove();
+    res.send({message :"order deleted"})
+  }
+  else{
+    res.status(404).send({ message: 'order Not Found' });
+  }
+}
+
+
