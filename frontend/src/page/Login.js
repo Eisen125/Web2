@@ -17,7 +17,7 @@ export const Login = () => {
       email,
       password,
     });
-    
+    console.log(res, "this is from login");
     if(res!==null){
       changeState();
     }

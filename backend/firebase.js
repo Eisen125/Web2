@@ -34,6 +34,7 @@ export const SignInExistingUser=async(email,password)=>{
     try{
       
       const existUser = await signInWithEmailAndPassword(auth, email, password);
+      console.log(auth);
       console.log('firebase signin',existUser);
         return{
             firebaseId: existUser.user.uid
