@@ -1,5 +1,6 @@
 import { async } from '@firebase/util';
 import Order from '../models/orderModel.js'
+import Product from '../models/productModel.js';
 import User from "../models/usersModel.js"
 
 export const getAllOrders=async (req,res)=>{
@@ -61,12 +62,14 @@ export const OrderDeliveryTime=async(req,res)=>{
  
 export const CreateNewOrder = async (req, res) => {
   
-  const {userId,cartItems } = req.body;
+  const {userId,cartItem } = req.body;
+  console.log(cartItem);
+  console.log(userId);
   const user= userId; // Get the user ID from the authenticated user
-  const existingOrder = await Order.findOne({ user, cartItems });
+  const existingOrder = await Order.findOne({ user, cartItem });
   if (existingOrder) {
     existingOrder.orderItems.forEach(item => {
-      const cartItem = cartItems.find(cItem => cItem.product === item.product);
+      const cartItem = cartItem.find(cItem => cItem.product === item.product);
       if (cartItem) {
         item.quantity += 1;
       }
@@ -74,10 +77,23 @@ export const CreateNewOrder = async (req, res) => {
     const updatedOrder = await existingOrder.save();
     res.status(201).json(updatedOrder);
   } else {
-    // If no existing order, create a new one
+     let user=new User({fireBaseId:userId})
+    const newOrderItem={
+      product:new Product(
+        {
+        name:cartItem.name,
+        id: cartItem.id,
+        image: cartItem.image,
+        price: cartItem.price,
+        views: cartItem.views,
+        description: cartItem.description,
+        catagory: cartItem.category,
+        brand: cartItem.brand})
+      
+    }
     const newOrder = new Order({
       user,
-      cartItems,
+      newOrderItem,
     });
     
 
