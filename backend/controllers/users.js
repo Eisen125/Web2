@@ -22,10 +22,12 @@ export const newUser=async(req,res)=>{
     newUser.save()
     res.send(newUser)
 };
-export const existUser=async(email,password)=>{
-    
+export const existUser=async(req,res)=>{
+    const {email,password}=req.body;
+    // console.log(email,"email exist");
+    // console.log(password,"password exist");
         const exist=await SignInExistingUser(email,password);
-        //console.log(exist.firebaseId);
+        // console.log(exist.firebaseId);
         if(exist!==undefined){
             return true;
         }

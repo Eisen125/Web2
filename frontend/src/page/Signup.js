@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from 'react-router-dom';
 import { newUser } from "../apiCalls";
 import "../styles/Signup.css";
+import {changeState} from './Store'
 
 export const Signup = () => {
   const [email, setEmail] = useState("");
@@ -18,6 +19,9 @@ export const Signup = () => {
     });
     console.log(res, "this is from signup");
     setIsLoading(false);
+    changeState();
+    console.log(localStorage.getItem('userState'));
+
   };
 
   return (
