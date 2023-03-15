@@ -62,13 +62,14 @@ export const OrderDeliveryTime=async(req,res)=>{
  
 export const CreateNewOrder = async (req, res) => {
   
-  const { userId, cartItem } = req.body;
+  let { userId, cartItem } = req.body;
+  let orderItems = cartItem;
   
   const user= userId; // Get the user ID from the authenticated user
   const existingOrder = await Order.findOne({ user, cartItem });
   if (existingOrder) {
     existingOrder.orderItems.forEach(item => {
-      const cartItem = cartItem.find(cItem => cItem.product === item.product);
+      cartItem = cartItem.find(cItem => cItem.product === item.product);
       if (cartItem) {
         item.quantity += 1;
       }
@@ -77,7 +78,7 @@ export const CreateNewOrder = async (req, res) => {
     res.status(201).json(updatedOrder);
   } else {
      let user=new User({fireBaseId:userId})
-    const newOrderItem={
+     const newOrderItem={
       product:new Product(
         {
         name:cartItem.name,
@@ -90,9 +91,10 @@ export const CreateNewOrder = async (req, res) => {
         brand: cartItem.brand})
       
     }
+    console.log(newOrderItem);
     const newOrder = new Order({
-      user,
-      newOrderItem,
+      user: user,
+      orderItems: [newOrderItem],
     });
     
 

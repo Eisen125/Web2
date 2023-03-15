@@ -17,10 +17,9 @@ import {CreateNewOrder} from "../apiCalls.js"
 export async function handleCartClick(cartItem){
     if(!localStorage.getItem('userState').logged && localStorage.getItem('userState').userId !== null){
       let userId = localStorage.getItem('userState').userId;
-      console.log(userId);
       await CreateNewOrder(userId,cartItem);
     }
-    else{console.log("u are not login");}
+    else{console.log("u are not logged in");}
     
 }
 
