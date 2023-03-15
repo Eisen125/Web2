@@ -19,8 +19,8 @@ export const Signup = () => {
     });
     console.log(res, "this is from signup");
     setIsLoading(false);
-    changeState();
-    console.log(localStorage.getItem('userState'));
+    changeState(res.userId);
+  
     window.location='/';
 
   };

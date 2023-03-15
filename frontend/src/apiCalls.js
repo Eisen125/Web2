@@ -53,9 +53,9 @@ try{
 }
 } 
 
-export const CreateNewOrder=async(cartItems)=>{
+export const CreateNewOrder=async(userId,cartItems)=>{
     try{
-        const result=await axios.post(BASE_URL+'/orders/newOrder',cartItems)
+        const result=await axios.post(BASE_URL+'/orders/newOrder',userId,cartItems)
         return result.data;
     }catch(error){
         console.log(error);

@@ -16,7 +16,7 @@ export const Login = () => {
     const res = await existUser({email,password});
     console.log(localStorage.getItem('userState'));
     if(res!==null){
-     changeState()
+     changeState(res.userId)
     }
     
     setIsLoading(false);

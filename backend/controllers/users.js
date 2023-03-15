@@ -30,10 +30,10 @@ export const existUser=async(req,res)=>{
         // console.log(exist.firebaseId);
         if(exist!==undefined){
             
-         res.send(true);
+         res.send({"logged":true,"userId":exist.firebaseId});
         }
         else{
-            res.send(false);
+            res.send({"logged":false,"userId":''});
         }
     }
        

@@ -60,19 +60,11 @@ export const OrderDeliveryTime=async(req,res)=>{
 }
  
 export const CreateNewOrder = async (req, res) => {
-  const { cartItems } = req.body;
-  const user = req.user._id; // Get the user ID from the authenticated user
-  const orderItems = cartItems.map(item => ({
-    user,
-    name: item.name,
-    quantity: item.quantity,
-    image: item.image,
-    price: item.price,
-    product: item.product,
-  }));
-  const existingOrder = await Order.findOne({ user, orderItems });
-  if (existingOrder) {
   
+  const {userId,cartItems } = req.body;
+  const user= userId; // Get the user ID from the authenticated user
+  const existingOrder = await Order.findOne({ user, cartItems });
+  if (existingOrder) {
     existingOrder.orderItems.forEach(item => {
       const cartItem = cartItems.find(cItem => cItem.product === item.product);
       if (cartItem) {
@@ -85,8 +77,9 @@ export const CreateNewOrder = async (req, res) => {
     // If no existing order, create a new one
     const newOrder = new Order({
       user,
-      orderItems,
+      cartItems,
     });
+    
 
     const createdOrder = await newOrder.save();
     res.status(201).json(createdOrder);
