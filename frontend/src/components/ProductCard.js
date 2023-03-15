@@ -5,7 +5,6 @@ import axios from 'axios';
 import '../styles/ProductCard.css';
 
 export const ProductCard = ({ product, className, onHover }) => {
-  console.log(product);
   return (
     <div
       className={`card product-card ${className}`}

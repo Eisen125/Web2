@@ -32,7 +32,9 @@ export const CreateNewUser=async(email,password)=>{
 
 export const SignInExistingUser=async(email,password)=>{
     try{
-        const existUser=await signInWithEmailAndPassword(auth,email,password);
+      
+      const existUser = await signInWithEmailAndPassword(auth, email, password);
+      console.log('firebase signin',existUser);
         return{
             firebaseId: existUser.user.uid
         }

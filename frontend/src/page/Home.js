@@ -45,7 +45,6 @@ export const Home = () => {
         for (const catagory of categories) {
           //const dummyresult = await axios.get('https://dummyjson.com/products/category/' + catagory + '?limit=20');
           const result = await Findproducts()
-          console.log("result from home",result);
 
           result.forEach(elm => {
             payload.push({
@@ -63,9 +62,9 @@ export const Home = () => {
        
         dispatch({ type: 'SET_RECENTLY_VIEWED', payload: payload });
         dispatch({type: 'SET_LOADED'})
-        console.log(state.recentlyViewed);
+        /*console.log(state.recentlyViewed);
         console.log( 'payload',JSON.parse(payload));
-        /*const featured = await axios.get('api/products');
+        const featured = await axios.get('api/products');
          
           featured.data.forEach((elm)=>{payload.push(elm)})
         

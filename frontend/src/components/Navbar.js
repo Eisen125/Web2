@@ -1,7 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
 import axios from 'axios';
-import Badge from 'react-bootstrap/esm/Badge';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';

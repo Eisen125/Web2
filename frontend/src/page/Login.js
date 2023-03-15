@@ -11,9 +11,8 @@ export const Login = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setIsLoading(true);
-
+    console.log('handle submit');
     const res = await existUser({
       email,
       password,
@@ -23,6 +22,7 @@ export const Login = () => {
       changeState();
     }
     console.log(localStorage.getItem('userState'));
+    setIsLoading(false);
   };
 
   return (

@@ -13,14 +13,15 @@ try {
     console.log(error,"this is from api calls",user);
 }
 }
-export const existUser=async(user)=>{
-    try{
-    const res=await axios.post(BASE_URL+'/users/existUser',user)
-    console.log(res)
-    return res.data
-    }catch (error) {
-    console.log(error);
-    return null;
+export const existUser = async (user) => {
+    console.log('existuser');
+    try {
+        const res = await axios.post(BASE_URL + '/users/existUser', user)
+        console.log('user login response', res)
+        return res.data
+    } catch (error) {
+        console.log('error');
+        return null;
     }
 }
 export const DeleteUser=async(user)=>{

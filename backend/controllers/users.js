@@ -26,7 +26,7 @@ export const existUser=async(email,password)=>{
         console.log('this is from exist user');
         const exist=await SignInExistingUser(email,password);
         console.log(exist);
-        console.log(exist.firebaseId);
+        //console.log(exist.firebaseId);
         if(exist!==undefined){
             console.log(exist.firebaseId,'alredy exist');
             return true;

@@ -17,6 +17,7 @@ export const Signup = () => {
       password,
     });
     console.log(res, "this is from signup");
+    setIsLoading(false);
   };
 
   return (
