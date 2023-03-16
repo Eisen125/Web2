@@ -1,10 +1,15 @@
 import React from 'react';
+import { useContext } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Navbar.css';
+import { Store } from '../page/Store.js'
 
-export const Navbar = () => {
+export const Navbar = (props) => {
+  
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-light">
       <div className="container">

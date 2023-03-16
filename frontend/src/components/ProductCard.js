@@ -1,11 +1,14 @@
 import React from 'react';
 import { useContext } from 'react';
+import {handleCartClick} from '../page/Store.js'
 
 import axios from 'axios';
 import '../styles/ProductCard.css';
 
 export const ProductCard = ({ product, className, onHover }) => {
-  console.log(product);
+  
+
+
   return (
     <div
       className={`card product-card ${className}`}
@@ -18,7 +21,7 @@ export const ProductCard = ({ product, className, onHover }) => {
         <p className="card-text">
           <strong>Price:</strong> {product.price}$
         </p>
-        <button className="btn btn-primary">Add to cart</button>
+        <button className="btn btn-primary" onClick={()=>{handleCartClick(product)}}>Add to cart</button>
       </div>
     </div>
   );

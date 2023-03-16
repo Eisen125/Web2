@@ -17,7 +17,6 @@
 
     useEffect(() => {
       socket.on('weatherData', setWeatherData);
-      console.log(weatherData,'weather');
       return () => {
         socket.off('weatherData', setWeatherData);
       };

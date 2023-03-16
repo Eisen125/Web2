@@ -1,8 +1,9 @@
 import { Router } from "express";
-import {getAllOrders,OrderSummery} from "../controllers/orders.js";
+import {getAllOrders,DeleteOrder,CreateNewOrder} from "../controllers/orders.js";
 const router = Router();
-router.get('/',getAllOrders)
-router.get('/summery',OrderSummery)
+router.get('/',getAllOrders);
+router.delete('/deleteOrder',DeleteOrder);
+router.post('/newOrder',CreateNewOrder);
 
 
 export default router;
