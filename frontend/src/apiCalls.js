@@ -63,6 +63,15 @@ export const CreateNewOrder=async(userId,cartItem)=>{
     }
 }
 
+export const DeleteOrder=async(userId,cartItem)=>{
+    try{
+        const res=await axios.delete(BASE_URL+'/orders/deleteOrder',{ "userId":userId, "cartItem":cartItem })
+        return res.data;
+    }catch(error){
+        console.log(error);
+    }
+}
+
 
 
 
