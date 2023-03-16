@@ -9,31 +9,33 @@ export const newUser=async(req,res)=>{
 
     // console.log(email + ","+ password);
     //send data to firebase auth users
-    const userRes=await CreateNewUser(email,password);
-    // console.log(userRes);
-    // console.log(userRes.firebaseId)
-    //create new user using schema 
-    const newUser=new User({
-        fireBaseId:userRes.firebaseId,
-        name:email,
-        email:email,
-        password:password
-    });
-    newUser.save()
-    res.send(newUser)
+    const userRes = await CreateNewUser(email, password);
+    if (typeof userRes !== "string") {
+        // console.log(userRes);
+        // console.log(userRes.firebaseId)
+        //create new user using schema 
+        const newUser = new User({
+            fireBaseId: userRes.firebaseId,
+            name: email,
+            email: email,
+            password: password
+        });
+        newUser.save()
+        res.send(newUser)
+    } else {
+        res.send(userRes);
+    }
 };
 export const existUser=async(req,res)=>{
     const {email,password}=req.body;
-    console.log(email,"email exist");
-    console.log(password,"password exist");
         const exist=await SignInExistingUser(email,password);
         // console.log(exist.firebaseId);
-        if(exist!==undefined){
+        if(typeof exist !== "string"){
             
          res.send({"logged":true,"userId":exist.firebaseId});
         }
         else{
-            res.send({"logged":false,"userId":''});
+            res.send(exist);
         }
     }
        

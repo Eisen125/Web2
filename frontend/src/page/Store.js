@@ -3,23 +3,24 @@ import {CreateNewOrder} from "../apiCalls.js"
 
 
 
-  export function changeState(id) {
-  const curState=localStorage.getItem("userState");
-  if(curState===null){
-    localStorage.setItem('userState',{'logged':true,'userId':id})
-    return;
+export function changeState(id) {
+    
+  if(id !== ''){
+    localStorage.setItem('logged', true);
+    localStorage.setItem('userId', id);
+  } else {
+    localStorage.clear();
   }
-  const newLogin=curState.logged===true?{'logged':false,'userId':""}:{'logged':true,'userId':id}
-  localStorage.setItem('userState',newLogin);
-
 }
 
 export async function handleCartClick(cartItem){
-    if(!localStorage.getItem('userState').logged && localStorage.getItem('userState').userId !== null){
-      let userId = localStorage.getItem('userState').userId;
+    if(!localStorage.getItem('logged') && localStorage.getItem('userId') !== null && localStorage.getItem('userId') !== ''){
+      let userId = localStorage.getItem('userId');
       await CreateNewOrder(userId,cartItem);
     }
-    else{console.log("u are not logged in");}
+    else {
+      console.log("u are not logged in");
+    }
     
 }
 

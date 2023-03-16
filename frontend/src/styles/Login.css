@@ -44,6 +44,11 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
+
+  .error-message{
+    color: #c40000;
+    font-weight: bold;
+  }
   
   .login-form button:disabled {
     opacity: 0.5;

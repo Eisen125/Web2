@@ -45,11 +45,16 @@
   }
 
   .item-with-name-and-icon{
+    color: #000;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 0.9rem;
+  }
+
+  .item-with-name-and-icon:hover{
+    color: #8D5D65;
   }
   .btn-outline-success {
     border-radius: 30px;

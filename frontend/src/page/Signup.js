@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from 'react-router-dom';
-import { newUser } from "../apiCalls";
+import { newUser, existUser } from "../apiCalls";
 import "../styles/Signup.css";
 import {changeState} from './Store'
 
@@ -8,6 +8,7 @@ export const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [resError, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,17 +19,21 @@ export const Signup = () => {
       password,
     });
     console.log(res, "this is from signup");
-    setIsLoading(false);
-    changeState(res.userId);
-  
-    window.location='/';
-
+    if (typeof res !== 'string') {
+      const resForId = await existUser({email,password});
+      changeState(resForId.userId);
+      window.location = '/';
+    } else {
+      setError(res);
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="signup-container">
       <h1>Signup</h1>
       <form className="signup-form" onSubmit={handleSubmit}>
+        <p className="error-message">{resError}</p>
         <input
           type="email"
           value={email}
