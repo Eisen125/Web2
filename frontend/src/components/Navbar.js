@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Navbar.css';
-import { Store } from '../page/Store.js'
+import { changeState } from '../page/Store.js'
 
 export const Navbar = (props) => {
-  
+
+  const [logged, setLogged] = useState(localStorage.getItem('logged'));
+
+  useEffect(() => {
+    setLogged(localStorage.getItem('logged') != null ? localStorage.getItem('logged') : false);
+  }, []);
+
+  const changeLog = () => {
+    changeState('');
+    setLogged(null);
+  };
   
   return (
     <nav className="navbar navbar-expand-lg navbar-light">
@@ -71,12 +81,19 @@ export const Navbar = (props) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/signup">
+              {logged ? <Link className="nav-link" to="/" onClick={()=>changeLog()}>
                 <div className="item-with-name-and-icon">
                   <FontAwesomeIcon icon={faSignOutAlt} />
+                  Logout
+                </div>
+              </Link> : <Link className="nav-link" to="/signup">
+                <div className="item-with-name-and-icon">
+                  <FontAwesomeIcon icon={faSignInAlt} />
                   Signup
                 </div>
               </Link>
+            }
+              
             </li>
           </ul>
         </div>

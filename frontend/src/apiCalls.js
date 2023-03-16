@@ -9,8 +9,8 @@ try {
     return res.data
    
 } catch (error) {
-    console.log(user);
-    console.log(error,"this is from api calls",user);
+    //console.log(error, "this is from api calls", user);
+    return error
 }
 }
 export const existUser = async (user) => {
@@ -22,7 +22,7 @@ export const existUser = async (user) => {
         return res.data
     } catch (error) {
         console.log('error');
-        return null;
+        return error;
     }
 }
 export const DeleteUser=async(user)=>{

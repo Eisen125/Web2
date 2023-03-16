@@ -27,18 +27,40 @@ export const CreateNewUser=async(email,password)=>{
     return{
       firebaseId:newUser.user.uid
     }
-    } catch (error) {console.log(error);}
+  } catch (error) {
+    if (error.code === 'auth/email-already-in-use') {
+      // Notify the user that the email address is already in use
+      return 'Email address is already in use.';
+    } else if (error.code === 'auth/weak-password') {
+      // Notify the user that the password is too weak
+      return 'Password is too weak.';
+    } else {
+      // Handle other errors
+      return 'Something went wrong..';
+    }
+  }
 }
 
 export const SignInExistingUser=async(email,password)=>{
-    try{
-      const existUser = await signInWithEmailAndPassword(auth, email, password);
+  try {
+    const existUser = await signInWithEmailAndPassword(auth, email, password);
       
-      // console.log('firebase signin',existUser.user.uid);
-        return{
-            firebaseId: existUser.user.uid
-        }
-    }catch(error){console.log(error,"an error");}
+    // console.log('firebase signin',existUser.user.uid);
+    return {
+      firebaseId: existUser.user.uid
+    }
+  } catch (error) {
+    if (error.code === 'auth/user-not-found') {
+      // Notify the user that the email address is not associated with any account
+      return 'Email not found.';
+    } else if (error.code === 'auth/wrong-password') {
+      // Notify the user that the password is incorrect
+      return 'Password is incorrect.';
+    } else {
+      // Handle other errors
+      return 'Something went wrong..';
+    }
+  }
 }
 
 

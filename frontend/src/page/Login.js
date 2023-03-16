@@ -8,25 +8,28 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [resError, setError] = useState('');
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log('handle submit');
-    const res = await existUser({email,password});
-    console.log(localStorage.getItem('userState'));
-    if(res!==null){
-     changeState(res.userId)
+    const res = await existUser({ email, password });
+    
+    if(typeof res!== "string"){
+      changeState(res.userId) 
+      window.location='/';
+    } else {
+      setError(res);
     }
     
     setIsLoading(false);
-    window.location='/';
   };
 
   return (
     <div className="login-container">
       <h1>Login</h1>
       <form className="login-form" onSubmit={handleSubmit}>
+      <p className="error-message">{resError}</p>
         <input
           type="email"
           value={email}
