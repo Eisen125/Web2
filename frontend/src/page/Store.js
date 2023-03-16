@@ -14,7 +14,7 @@ export function changeState(id) {
 }
 
 export async function handleCartClick(cartItem){
-    if(!localStorage.getItem('logged') && localStorage.getItem('userId') !== null && localStorage.getItem('userId') !== ''){
+    if(localStorage.getItem('logged') && localStorage.getItem('userId') !== null && localStorage.getItem('userId') !== ''){
       let userId = localStorage.getItem('userId');
       await CreateNewOrder(userId,cartItem);
     }
