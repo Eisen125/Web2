@@ -4,7 +4,7 @@ import { Findproducts ,SaveProduct,DeleteProduct,AddNewProduct} from "../control
 const router = Router();
 router.post("/", Findproducts);
 router.post("/save",SaveProduct);
-router.delete('/deleteProduct',DeleteProduct);
+router.post('/deleteProduct',DeleteProduct);
 router.post('/AddnewProduct',AddNewProduct);
 
 export default router;
