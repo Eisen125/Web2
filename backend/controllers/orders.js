@@ -3,65 +3,116 @@ import Order from '../models/orderModel.js'
 import Product from '../models/productModel.js';
 import User from "../models/usersModel.js"
 
-export const getAllOrders=async (req,res)=>{
-    const orders = await Order.find().populate('user', 'name');
-    res.send(orders);
+export const GetAllOrders = async (req, res) => {
+  let { userId } = req.body;
+  const user = await User.findOne({ fireBaseId: userId });
+  if (user) {
+    const orders = await Order.findOne({ user: user._id });
+    orders ? res.status(201).json(orders) : res.status(404).send({ message: 'Order Not Found' });
+  } else {
+    res.status(404).send({ message: 'User Has No Orders' });
+  }
 }
 
 export const CreateNewOrder = async (req, res) => {
   
   let { userId, cartItem } = req.body;
-  let orderItems = cartItem;
-  
-  const user= userId; // Get the user ID from the authenticated user
-  const existingOrder = await Order.findOne({ user, cartItem });
+  const user = await User.findOne({ fireBaseId: userId });
+  const existingOrder = await Order.findOne({ user: user._id });
+
   if (existingOrder) {
+    let itemExists = false;
     existingOrder.orderItems.forEach(item => {
-      cartItem = cartItem.find(cItem => cItem.product === item.product);
-      if (cartItem) {
+      if (item.id == cartItem.id) {
         item.quantity += 1;
+        itemExists = true;
       }
     });
+
+    if (!itemExists) {
+      const productRef = await Product.findOne({ id: cartItem.id });
+      const newOrderItem = {
+        id: parseInt(cartItem.id),
+        quantity: 1,
+        product: productRef
+      }
+      existingOrder.orderItems.push(newOrderItem);
+    }
+
     const updatedOrder = await existingOrder.save();
     res.status(201).json(updatedOrder);
   } else {
-     let user=new User({fireBaseId:userId})
+    const productRef = await Product.findOne({ id: cartItem.id });
     const newOrderItem = {
-      quantity:1,
-      product:new Product(
-        {
-        name:cartItem.name,
-        id: cartItem.id,
-        image: cartItem.image,
-        price: cartItem.price,
-        views: cartItem.views,
-        description: cartItem.description,
-        catagory: cartItem.category,
-        brand: cartItem.brand})
-      
+      id: cartItem.id,
+      quantity: 1,
+      product: productRef
     }
-    console.log(newOrderItem);
     const newOrder = new Order({
-      user: user,
+      user: user._id,
       orderItems: [newOrderItem],
     });
-    
 
     const createdOrder = await newOrder.save();
     res.status(201).json(createdOrder);
   }
 };
 
-export const DeleteOrder=async (req,res)=>{
-let { userId, cartItem } = req.body;
-  const order=await Order.findOne(userId,cartItem)
-  if(order){
-    await order.remove();
-    res.send({message :"order deleted"})
-  }
-  else{
-    res.status(404).send({ message: 'order Not Found' });
+// lower order quantity
+export const ReduceQuantity = async (req, res) => {
+  let { userId } = req.body;
+  const user = await User.findOne({ fireBaseId: userId });
+  const order = await Order.findOne({ user: user._id });
+
+  if (order) {
+    existingOrder.orderItems.forEach(item => {
+      if (item.id == cartItem.id && item.quantity !== 1) {
+        item.quantity = Math.max(1, item.quantity - 1);
+      }
+    });
+
+    const updatedOrder = await existingOrder.save();
+    res.status(201).json(updatedOrder);
+  } else {
+    res.status(404).send({ message: 'Order Not Found' });
   }
 }
 
+// delete all items ordered
+export const DeleteOrder = async (req, res) => {
+  let { userId } = req.body;
+  const user = await User.findOne({ fireBaseId: userId });
+  const order = await Order.findOne({ user: user._id });
+  if (order !== null) {
+    await order.remove();
+    res.send({ message: "Order Deleted" })
+  }
+  else {
+    res.status(404).send({ message: 'Order Not Found' });
+  }
+}
 
+// delete single item from order
+export const DeleteOrderItem = async (req, res) => {
+  let { userId, cartItem } = req.body;
+  const user = await User.findOne({ fireBaseId: userId });
+  const order = await Order.findOne({ user: user._id });
+
+  if (order) {
+    let removeItem = null;
+    order.orderItems.forEach(item => {
+      removeItem = (item.id == cartItem.id) ? item : null;
+    });
+    if (removeItem) {
+      order.orderItems.remove(removeItem);
+      const updatedOrder = await order.save();
+      res.status(201).json(updatedOrder);
+      res.send({ message: "Ordered Item Deleted" })
+    } else {
+      res.status(404).send({ message: 'Ordered Item Not Found' });
+    } 
+  }
+  else {
+    res.status(404).send({ message: 'Order Not Found' });
+  }
+}
