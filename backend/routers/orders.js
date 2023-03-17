@@ -1,7 +1,7 @@
 import { Router } from "express";
-import {getAllOrders,DeleteOrder,CreateNewOrder} from "../controllers/orders.js";
+import { GetAllOrders, DeleteOrder, CreateNewOrder } from "../controllers/orders.js";
 const router = Router();
-router.get('/',getAllOrders);
+router.get('/',GetAllOrders);
 router.delete('/deleteOrder',DeleteOrder);
 router.post('/newOrder',CreateNewOrder);
 

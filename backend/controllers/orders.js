@@ -3,11 +3,15 @@ import Order from '../models/orderModel.js'
 import Product from '../models/productModel.js';
 import User from "../models/usersModel.js"
 
-export const getAllOrders = async (req, res) => {
+export const GetAllOrders = async (req, res) => {
   let { userId } = req.body;
   const user = await User.findOne({ fireBaseId: userId });
-  const orders = await Order.findOne({ user: user._id });
-  res.send(orders);
+  if (user) {
+    const orders = await Order.findOne({ user: user._id });
+    orders ? res.status(201).json(orders) : res.status(404).send({ message: 'Order Not Found' });
+  } else {
+    res.status(404).send({ message: 'User Has No Orders' });
+  }
 }
 
 export const CreateNewOrder = async (req, res) => {
