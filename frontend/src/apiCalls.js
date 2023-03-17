@@ -37,7 +37,7 @@ export const DeleteUser=async(user)=>{
 
 export const Findproducts=async(filter)=>{
     try {
-        const result=await axios.post(BASE_URL+'/products',filter)
+        const result = await axios.post(BASE_URL + '/products', { "filter":filter })
         return result.data
     } catch (error) {
         console.log(error);
@@ -56,9 +56,28 @@ try{
 export const CreateNewOrder=async(userId,cartItem)=>{
     try{
         //console.log({ "userId":userId, "cartItem":cartItem });
-        const result = await axios.post(BASE_URL + '/orders/newOrder', { "userId":userId, "cartItem":cartItem })
+        const result = await axios.post(BASE_URL + '/orders/newOrder', { "userId": userId, "cartItem": cartItem });
         return result.data;
     }catch(error){
+        console.log(error);
+    }
+}
+
+export const ReduceQuantity=async(userId,cartItem)=>{
+    try{
+        //console.log({ "userId":userId, "cartItem":cartItem });
+        const result = await axios.post(BASE_URL + '/orders/ReduceQuantity', { "userId": userId, "cartItem": cartItem });
+        return result.data;
+    }catch(error){
+        console.log(error);
+    }
+}
+
+export const GetAllOrders = async (userId) => {
+    try {
+        const result = await axios.post(BASE_URL + '/orders/GetAllOrders', { "userId": userId });
+        return result.data;
+    } catch (error) {
         console.log(error);
     }
 }
@@ -72,6 +91,14 @@ export const DeleteOrder=async(userId,cartItem)=>{
     }
 }
 
+export const DeleteOrderItem=async(userId,cartItem)=>{
+    try{
+        const res=await axios.delete(BASE_URL+'/orders/DeleteOrderItem',{ "userId":userId, "cartItem":cartItem })
+        return res.data;
+    }catch(error){
+        console.log(error);
+    }
+}
 
 
 
