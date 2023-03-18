@@ -43,7 +43,14 @@ export const Findproducts=async(filter)=>{
         console.log(error);
     }
 }
-
+export const FindAllProducts=async(filter)=>{
+    try {
+        const result=await axios.post(BASE_URL+'/products/allProducts',filter)
+        return result.data
+    } catch (error) {
+        console.log(error);
+    }
+}
 export const SaveProduct=async(productId)=>{
 try{
  const result=await axios.post(BASE_URL+'/products/save',productId)

@@ -1,8 +1,5 @@
 import React from 'react';
-import { useContext } from 'react';
 import {handleCartClick} from '../page/Store.js'
-
-import axios from 'axios';
 import '../styles/ProductCard.css';
 
 export const ProductCard = ({ product, className, onHover }) => {

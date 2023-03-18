@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react';
+import react from 'react';
 import {CreateNewOrder} from "../apiCalls.js"
 
 
@@ -19,7 +19,7 @@ export async function handleCartClick(cartItem){
       await CreateNewOrder(userId,cartItem);
     }
     else {
-      console.log("u are not logged in");
+      {alert("you should signIn")}
     }
     
 }
