@@ -1,8 +1,6 @@
 import React, { Row, Col, useState, useEffect } from "react";
-import { useReducer } from "react"; 
-import axios from 'axios';
-import { ProductCard } from '../components/ProductCard';
-import {Findproducts} from "../apiCalls.js"
+import { useReducer } from "react";
+import { Findproducts } from "../apiCalls.js";
 import '../styles/Home.css';
 import { Slider } from "../components/Slider";
 
@@ -44,7 +42,7 @@ export const Home = () => {
         const categories = ["womens-shoes", "mens-shoes"]
         for (const catagory of categories) {
           //const dummyresult = await axios.get('https://dummyjson.com/products/category/' + catagory + '?limit=20');
-          const result = await Findproducts()
+          const result = await Findproducts();
 
           result.forEach(elm => {
             payload.push({

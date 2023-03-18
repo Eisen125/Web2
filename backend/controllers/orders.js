@@ -1,4 +1,3 @@
-import { async } from '@firebase/util';
 import Order from '../models/orderModel.js'
 import Product from '../models/productModel.js';
 import User from "../models/usersModel.js"
@@ -60,18 +59,18 @@ export const CreateNewOrder = async (req, res) => {
 
 // lower order quantity
 export const ReduceQuantity = async (req, res) => {
-  let { userId } = req.body;
+  let { userId, cartItem } = req.body;
   const user = await User.findOne({ fireBaseId: userId });
   const order = await Order.findOne({ user: user._id });
 
   if (order) {
-    existingOrder.orderItems.forEach(item => {
+    order.orderItems.forEach(item => {
       if (item.id == cartItem.id && item.quantity !== 1) {
         item.quantity = Math.max(1, item.quantity - 1);
       }
     });
 
-    const updatedOrder = await existingOrder.save();
+    const updatedOrder = await order.save();
     res.status(201).json(updatedOrder);
   } else {
     res.status(404).send({ message: 'Order Not Found' });

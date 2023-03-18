@@ -1,11 +1,12 @@
-
-import { async } from '@firebase/util';
 import Product from '../models/productModel.js'
 
 export const Findproducts = async (req, res) => {
-    const products = await Product.find();
-    res.send(products);
-  };
+  let { filter } = req.body;
+  const products = await Product.find(filter);
+  // console.log("this is from find",products);
+  res.send(products);
+};
+
 
 export const SaveProduct = async (req, res) => {
   
