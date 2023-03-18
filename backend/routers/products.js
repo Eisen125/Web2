@@ -1,11 +1,10 @@
 import { Router } from "express";
-import { Findproducts ,SaveProduct,DeleteProduct,AddNewProduct} from "../controllers/products.js";
+import { Findproducts,DeleteProduct,AddNewProduct,UpdateProduct} from "../controllers/products.js";
 
 const router = Router();
 router.post("/", Findproducts);
-router.post("/save",SaveProduct);
 router.post('/deleteProduct',DeleteProduct);
 router.post('/AddnewProduct',AddNewProduct);
-// router.post('/updateProduct',)
+router.post('/updateProduct',UpdateProduct);
 
 export default router;

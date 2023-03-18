@@ -7,3 +7,7 @@ export const Statistics = () => {
     <div className='content-area'>Statistics</div>
   )
 }
+
+
+
+//price range and quantiny 

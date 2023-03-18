@@ -1,8 +1,8 @@
 
-import react ,{ createContext, useReducer } from 'react';
+import react ,{ createContext, useReducer,useContext } from 'react';
 import { CreateNewOrder, ReduceQuantity, DeleteOrderItem, DeleteOrder } from "../apiCalls.js";
+
 export function changeState(id) {
-    
   if(id !== ''){
     localStorage.setItem('logged', true);
     localStorage.setItem('userId', id);
@@ -11,7 +11,7 @@ export function changeState(id) {
   }
 }
 
-
+export  const  MyContext = createContext({'id':0});
 export async function addItemToCart(cartItem, target) {
   target.disabled = true;
   if (localStorage.getItem('logged') && localStorage.getItem('userId') !== null && localStorage.getItem('userId') !== '') {
