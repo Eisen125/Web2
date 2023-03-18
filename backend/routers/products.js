@@ -6,5 +6,6 @@ router.post("/", Findproducts);
 router.post("/save",SaveProduct);
 router.post('/deleteProduct',DeleteProduct);
 router.post('/AddnewProduct',AddNewProduct);
+// router.post('/updateProduct',)
 
 export default router;

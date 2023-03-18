@@ -1,8 +1,6 @@
-import { createContext, useReducer } from 'react';
+
+import react ,{ createContext, useReducer } from 'react';
 import { CreateNewOrder, ReduceQuantity, DeleteOrderItem, DeleteOrder } from "../apiCalls.js";
-
-
-
 export function changeState(id) {
     
   if(id !== ''){
@@ -12,6 +10,7 @@ export function changeState(id) {
     localStorage.clear();
   }
 }
+
 
 export async function addItemToCart(cartItem, target) {
   target.disabled = true;

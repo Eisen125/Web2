@@ -1,7 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
 import { addItemToCart } from '../page/Store.js';
-
 import axios from 'axios';
 import '../styles/ProductCard.css';
 

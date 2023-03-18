@@ -76,7 +76,7 @@ export const Home = () => {
   
   return (
     <div className="home-container content-area">
-      <Slider name={'Recently Viewed'} array={state.recentlyViewed} loading={state.loading} />
+       <Slider name={'Recently Viewed'} array={state.recentlyViewed} loading={state.loading} /> 
       <Slider name={'Now Trending'} array={state.nowTrending} loading={state.loading} />
       <Slider name={'Best Selling'} array={state.bestSelling} loading={state.loading} />
     </div>

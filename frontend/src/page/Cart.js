@@ -84,22 +84,22 @@ export const Cart = () => {
               <h2>Your Cart</h2>
               <hr />
               {state.cart.map(item => (
-              <div key={item.product.name} className="card">
-                <div className="card-body">
-                  <div className="card-image">
+              <div key={item.product.name} className="cart-card">
+                <div className="cart-card-body">
+                  <div className="cart-card-image">
                     <img src={item.product.image} alt={item.product.name} />
                   </div>
-                  <div className="card-content">
-                    <h3 className="card-title">{item.product.name}</h3>
-                    <p className="card-price"><strong>Price: </strong>{item.product.price}$</p>
-                      <div className="card-quantity">
+                  <div className="cart-card-content">
+                    <h3 className="cart-card-title">{item.product.name}</h3>
+                    <p className="cart-card-price"><strong>Price: </strong>{item.product.price}$</p>
+                      <div className="cart-card-quantity">
                       <strong>Quantity: </strong>
                       <button onClick={(event) => reduceItemQuantity(item, event.target)}>-</button>
                       <span>{item.quantity}</span>
                       <button onClick={(event) => addItemToCart(item, event.target)}>+</button>
                     </div>
                   </div>
-                  <div className="card-remove">
+                  <div className="cart-card-remove">
                     <button onClick={(event) => removeItem(item,event.target)}>X</button>
                   </div>
                 </div>

@@ -7,8 +7,16 @@ export const Findproducts = async (req, res) => {
   res.send(products);
 };
 
+export const UpdateProducts=async (req,res)=>{
+  const productToUpdate=await Product.findOne(req.body.id);
+  if(productToUpdate){
+     const createdProduct= await productToUpdate.save();
+     console.log(createdProduct);
+     res.status(201).send("updated successfully");
+  }
+}
+
 export const SaveProduct = async (req, res) => {
-    // console.log(req.body);
     req.body.forEach(async (element) => {
       const newproduct = new Product(element)
       const product = await newproduct.save()
