@@ -50,8 +50,6 @@ export const Products = () => {
     };
     fetchData();
   }, []);
-
-  console.log(state);
   return (
     <div className='container content-area'>
       <Slider name={'all products'} array={state.allProducts} loading={state.loading} ></Slider>
