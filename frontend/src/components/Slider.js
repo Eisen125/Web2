@@ -18,7 +18,7 @@ export const Slider = ({ name, array, loading }) => {
     }
     return (
     <div>
-        <h2>{ name }</h2>
+        <h2 className='product-slider-title'>{ name }</h2>
         <div className="row product-slider">
             {!loading ? <button className='prev-button' onClick={()=>slide(0)} style={{ visibility: start === 0 ? 'hidden' : 'visible' }}/> : ''}        
             {!loading ? array.slice(start,end).map((product) => (
@@ -33,7 +33,8 @@ export const Slider = ({ name, array, loading }) => {
             </div>
             )) : <h6>loading..</h6>}
                 {!loading ? <button className='next-button' onClick={()=>slide(1)} style={{ visibility: end === (array.length - 1) ? 'hidden' : 'visible' }}/> : ''}
-        </div>
+            </div>
+            <hr/>
     </div>
   )
 }

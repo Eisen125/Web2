@@ -9,7 +9,7 @@
   }
   
   .navbar-brand {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Nunito','Roboto', sans-serif;
     font-size: 28px;
     font-weight: bold;
   }
@@ -25,7 +25,7 @@
   }
   
   .nav-link {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Nunito','Roboto', sans-serif;
     font-size: 1.14rem;
     font-weight: 500;
     color: #212529;
@@ -37,7 +37,7 @@
   }
   
   .form-control {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Nunito','Roboto', sans-serif;
     font-size: 1rem;
     min-width: 214px !important;
     border-radius: 30px;
