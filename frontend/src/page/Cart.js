@@ -53,6 +53,14 @@ export const Cart = () => {
     setQuantities({ ...quantities, [item.product.id]: Math.max(1, quantities[item.product.id] - 1) });
     target.disabled = false;
   }
+
+  const handleRemove = (item, target) => {
+    removeItem(item, target);
+    target.disabled = true;
+    dispatch({ type: 'SET_CART', payload: state.cart.filter(obj => obj !== item) });
+    setSubTotal(subTotal - (item.product.price * quantities[item.product.id]));
+    target.disabled = false;
+  }
   
   useEffect(() => {
     const fetchData = async () => {
@@ -97,7 +105,7 @@ export const Cart = () => {
   return (
     <div className="content-area">
       {state.loading ? <div className='emptyCart'><p>loading..</p></div> :
-        (state.emptyCart ?
+        (state.cart.length == 0 ?
           <div className='emptyCart'>
             <p>It seems like your cart is empty.</p>
             <p>Treat your self to our</p>
@@ -125,7 +133,7 @@ export const Cart = () => {
                     </div>
                   </div>
                   <div className="cart-card-remove">
-                    <button onClick={(event) => removeItem(item,event.target)}><FontAwesomeIcon icon={faXmark}/></button>
+                    <button onClick={(event) => handleRemove(item,event.target)}><FontAwesomeIcon icon={faXmark}/></button>
                   </div>
                 </div>
               </div>

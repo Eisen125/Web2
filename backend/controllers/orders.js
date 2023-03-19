@@ -91,19 +91,18 @@ export const DeleteOrder = async (req, res) => {
   }
 }
 
-// delete single item from order
-export const DeleteOrderItem = async (req, res) => {
+// delete a single item from an order
+export const RemoveOrderItem = async (req, res) => {
   let { userId, cartItem } = req.body;
   const user = await User.findOne({ fireBaseId: userId });
   const order = await Order.findOne({ user: user._id });
+  console.log(cartItem.product);
 
   if (order) {
-    let removeItem = null;
-    order.orderItems.forEach(item => {
-      removeItem = (item.id == cartItem.id) ? item : null;
-    });
-    if (removeItem) {
-      order.orderItems.remove(removeItem);
+    //let newOrder = order;
+    order.orderItems = order.orderItems.filter(obj => obj.id !== cartItem.product.id);
+    //if (newOrder.orderItems.length != order.orderItems.length) {
+      //console.log('they differ');
       const updatedOrder = await order.save();
       res.status(201).json(updatedOrder);
       res.send({ message: "Ordered Item Deleted" })
@@ -111,10 +110,6 @@ export const DeleteOrderItem = async (req, res) => {
       res.status(404).send({ message: 'Ordered Item Not Found' });
     } 
   }
-  else {
-    res.status(404).send({ message: 'Order Not Found' });
-  }
-
-
-  
-}
+  //else {
+  //  res.status(404).send({ message: 'Order Not Found' });
+  //}
