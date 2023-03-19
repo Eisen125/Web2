@@ -51,7 +51,7 @@ export const Products = () => {
     fetchData();
   }, []);
   return (
-    <div className='container content-area'>
+    <div className='content-area'>
       <Slider name={'all products'} array={state.allProducts} loading={state.loading} ></Slider>
     </div>
   )
