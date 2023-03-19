@@ -91,9 +91,9 @@ export const DeleteOrder=async(userId,cartItem)=>{
     }
 }
 
-export const DeleteOrderItem=async(userId,cartItem)=>{
+export const RemoveOrderItem=async(userId,cartItem)=>{
     try{
-        const res=await axios.delete(BASE_URL+'/orders/DeleteOrderItem',{ "userId":userId, "cartItem":cartItem })
+        const res=await axios.post(BASE_URL+'/orders/RemoveOrderItem',{ "userId":userId, "cartItem":cartItem })
         return res.data;
     }catch(error){
         console.log(error);

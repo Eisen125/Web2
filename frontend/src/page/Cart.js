@@ -3,6 +3,8 @@ import { Findproducts, GetAllOrders } from "../apiCalls.js";
 import { reduceItemQuantity, addItemToCart, removeItem } from './Store.js';
 import { Link } from 'react-router-dom';
 import '../styles/Cart.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMinusCircle, faPlusCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const initialState = {
   cart: [],
@@ -32,7 +34,33 @@ export const Cart = () => {
   const [subTotal, setSubTotal] = useState(0);
   const [tax, setTax] = useState(0);
   const [total, setTotal] = useState(0);
+  const [quantities, setQuantities] = useState({});
 
+  const handlePlus = (item, target) => {
+    addItemToCart(item, target);
+    target.disabled = true;
+    setQuantities({ ...quantities, [item.product.id]: (quantities[item.product.id] || 0) + 1 });
+    setSubTotal(subTotal + item.product.price);
+    target.disabled = false;
+  }
+  
+  const handleMinus = (item, target) => {
+    reduceItemQuantity(item, target);
+    target.disabled = true;
+    if (quantities[item.product.id] != 1) {
+      setSubTotal(subTotal - item.product.price);
+    }
+    setQuantities({ ...quantities, [item.product.id]: Math.max(1, quantities[item.product.id] - 1) });
+    target.disabled = false;
+  }
+
+  const handleRemove = (item, target) => {
+    removeItem(item, target);
+    target.disabled = true;
+    dispatch({ type: 'SET_CART', payload: state.cart.filter(obj => obj !== item) });
+    setSubTotal(subTotal - (item.product.price * quantities[item.product.id]));
+    target.disabled = false;
+  }
   
   useEffect(() => {
     const fetchData = async () => {
@@ -52,6 +80,11 @@ export const Cart = () => {
               };
             });
             const payload = await Promise.all(promises);
+            const newQuantities = {};
+            payload.forEach(item => {
+              newQuantities[item.product.id] = item.quantity;
+            });
+            setQuantities(newQuantities);
             dispatch({ type: 'SET_CART', payload: payload });
             setSubTotal(payload.reduce((acc, item) => acc + (item.product.price * item.quantity), 0));
             dispatch({ type: 'SET_LOADED' })
@@ -65,14 +98,14 @@ export const Cart = () => {
   }, []);
 
   useEffect(() => {
-    setTax(subTotal * 0.08);
-    setTotal(subTotal + subTotal * 0.08);
+    setTax(subTotal * 0.06);
+    setTotal(subTotal + subTotal * 0.06);
   }, [subTotal]);
-
+  
   return (
     <div className="content-area">
       {state.loading ? <div className='emptyCart'><p>loading..</p></div> :
-        (state.emptyCart ?
+        (state.cart.length == 0 ?
           <div className='emptyCart'>
             <p>It seems like your cart is empty.</p>
             <p>Treat your self to our</p>
@@ -84,23 +117,23 @@ export const Cart = () => {
               <h2>Your Cart</h2>
               <hr />
               {state.cart.map(item => (
-              <div key={item.product.name} className="cart-card">
+              <div key={item.product.id} className="cart-card">
                 <div className="cart-card-body">
                   <div className="cart-card-image">
                     <img src={item.product.image} alt={item.product.name} />
                   </div>
                   <div className="cart-card-content">
-                    <h3 className="cart-card-title">{item.product.name}</h3>
+                    <h3 className="cart-card-title"><strong>{item.product.name}</strong></h3>
                     <p className="cart-card-price"><strong>Price: </strong>{item.product.price}$</p>
                       <div className="cart-card-quantity">
                       <strong>Quantity: </strong>
-                      <button onClick={(event) => reduceItemQuantity(item, event.target)}>-</button>
-                      <span>{item.quantity}</span>
-                      <button onClick={(event) => addItemToCart(item, event.target)}>+</button>
+                      <button className="left" onClick={(event) => handleMinus(item, event.target)}><FontAwesomeIcon icon={faMinusCircle} /></button>
+                      <span>{quantities[item.product.id]}</span>
+                      <button onClick={(event) => handlePlus(item, event.target)}><FontAwesomeIcon icon={faPlusCircle} /></button>
                     </div>
                   </div>
                   <div className="cart-card-remove">
-                    <button onClick={(event) => removeItem(item,event.target)}>X</button>
+                    <button onClick={(event) => handleRemove(item,event.target)}><FontAwesomeIcon icon={faXmark}/></button>
                   </div>
                 </div>
               </div>
@@ -109,12 +142,17 @@ export const Cart = () => {
             <div className="order-details">
               <h2>Order Details</h2>
               <hr />
-              <p>Subtotal: ${subTotal.toFixed(2)}</p>
-            <p>Tax: ${tax.toFixed(2)}</p>
-            <p>Total: ${total.toFixed(2)}</p>
-            <button>Checkout</button>
+              <div className="order-texts">
+                <p>Subtotal:</p>
+                <span>{subTotal.toFixed(2)}$</span>
+                <p>Tax:</p>
+                <span>{tax.toFixed(2)}$</span>
+                <p>Total:</p>
+                <span>{total.toFixed(2)}$</span>
+                <button>Checkout</button>
+              </div>
+            </div>
           </div>
-        </div>
       )}
     </div>
   )

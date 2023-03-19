@@ -1,6 +1,5 @@
-
-import react ,{ createContext, useReducer,useContext } from 'react';
-import { CreateNewOrder, ReduceQuantity, DeleteOrderItem, DeleteOrder } from "../apiCalls.js";
+import react ,{ createContext, useReducer } from 'react';
+import { CreateNewOrder, ReduceQuantity, RemoveOrderItem, DeleteOrder } from "../apiCalls.js";
 
 export function changeState(id) {
   if(id !== ''){
@@ -32,7 +31,7 @@ export async function reduceItemQuantity(cartItem, target) {
 
 export async function removeItem(cartItem, target) {
   target.disabled = true;
-  await DeleteOrderItem(localStorage.getItem('userId'), cartItem);
+  await RemoveOrderItem(localStorage.getItem('userId'), cartItem);
   target.disabled = false;
 }
 

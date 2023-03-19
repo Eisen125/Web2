@@ -4,10 +4,11 @@
     left: -10px;
     bottom: 0px;
     width: 100%;
-    background-color: #f5f5f5;
+    background-color: #f8f9fa;
     text-align: center;
     border-top: 1px solid #dee2e6;
     z-index: 999;
+    font-family: 'Nunito','Roboto', sans-serif;
   }
   
   .footer-weather{
@@ -24,12 +25,47 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #f5f5f5;
+    background-color: #f8f9fa;
     margin-bottom: -15px;
   }
   
   .social {
     margin: 0 10px;
-   
   }
   
+  .social-container {
+    background: #f8f9fa;
+    padding: 25px 50px;
+  }
+  a.social:hover {
+    transform: translateY(-2px);
+  }
+  .footer-title {
+    color: #008491;
+  }
+  a.youtube {
+    color: #eb3223;
+    margin: 0 0.5rem;
+  }
+  
+  a.facebook {
+    color: #4968ad;
+    margin: 0 0.5rem;
+
+  }
+  
+  a.twitter {
+    color: #49a1eb;
+    margin: 0 0.5rem;
+
+  }
+  
+  a.instagram {
+    color:#8D5D65;
+    margin: 0 0.5rem;
+  }
+  .footer-container{
+    margin: 0 0.5rem;
+    transition: transform 250ms;
+    text-align: center;
+  }
