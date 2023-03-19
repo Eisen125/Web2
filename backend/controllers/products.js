@@ -16,13 +16,8 @@ export const UpdateProduct=async (req,res)=>{
   }
 }
 
-// export const SaveProduct = async (req, res) => {
-//     req.body.forEach(async (element) => {
-//       const newproduct = new Product(element)
-//       const product = await newproduct.save()
-//       res.send(product)
-//     });
-// };
+
+
 
 export const DeleteProduct=async (req,res)=>{
   try {
@@ -43,5 +38,36 @@ export const AddNewProduct= async (req,res)=>{
     res.send("product has alredy created");
   }
 }
+
+
+export const searchProduct = async (req, res, next) => {
+  const { search, category, brand, priceRange } = req.query;
+  const query = {};
+  if (search) {
+    query.name = { $regex: search, $options: 'i' };
+  }
+  if (category) {
+    query.category = category;
+  }
+  if (brand) {
+    query.brand = brand;
+  }
+  if (priceRange) {
+    const [minPrice, maxPrice] = priceRange.split('-');
+    query.price = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) };
+  }
+
+  try {
+    const products = await Product.aggregate([
+      { $match: query },
+      { $group: { _id: '$category', products: { $push: '$$ROOT' } } },
+      { $sort: { _id: 1 } },
+    ]);
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 

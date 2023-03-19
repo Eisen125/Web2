@@ -2,6 +2,7 @@ import React, { useReducer, useEffect,createContext, useContext, useState} from 
 import {Findproducts} from '../apiCalls'
 import { useParams } from 'react-router-dom';
 import { MyContext } from '../page/Store.js';
+import { addItemToCart } from "../page/Store.js";
 import { Slider } from "./Slider";
 
 const initialState={
@@ -62,7 +63,7 @@ export const Product = () => {
  console.log(state.product);
 
   return (
-    <div >
+    <div  className="content-area">
         {state.loading ?
           <div className="product-empty">
             <h2>loading...</h2> </div> :
@@ -74,6 +75,8 @@ export const Product = () => {
                 <img className="product=img" src={state.product.image} alt=""></img>
                 <p className="product-price">price:{state.product.price}$</p>
                 <p className="product-info">description:{state.product.description}</p>
+                <button className="btn btn-primary" onClick={(event)=>{addItemToCart(state.product,event.target)}}>Add to cart</button>
+
               </div> 
               ) 
       }
