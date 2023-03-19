@@ -1,0 +1,22 @@
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.chart-title {
+    font-size: xx-large;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #8D5D65;
+}
+
+rect {
+    fill: #008491;
+}
+
+rect:hover {
+    fill: #8D5D65;
+}
