@@ -51,3 +51,7 @@
     background-color: #6e4c5a;
     border-color: #6e4c5a;
   }
+  .product-card .product-link{
+    color: #212529;
+    text-decoration: none;
+  }

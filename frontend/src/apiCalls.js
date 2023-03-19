@@ -43,26 +43,20 @@ export const Findproducts=async(filter)=>{
         console.log(error);
     }
 }
-export const FindAllProducts=async(filter)=>{
-    try {
-        const result=await axios.post(BASE_URL+'/products/allProducts',filter)
-        return result.data
+
+
+export const UpdateProduct=async(productId)=>{
+    try{
+        const res=await axios.post(BASE_URL+'/products/updateProduct',productId)
+        return res.data
     } catch (error) {
         console.log(error);
     }
 }
-export const SaveProduct=async(productId)=>{
-try{
- const result=await axios.post(BASE_URL+'/products/save',productId)
- return result.data
-}catch (error) {
-    console.log(error);
-}
-} 
 
 export const CreateNewOrder=async(userId,cartItem)=>{
     try{
-        //console.log({ "userId":userId, "cartItem":cartItem });
+       
         const result = await axios.post(BASE_URL + '/orders/newOrder', { "userId": userId, "cartItem": cartItem });
         return result.data;
     }catch(error){
@@ -72,7 +66,6 @@ export const CreateNewOrder=async(userId,cartItem)=>{
 
 export const ReduceQuantity=async(userId,cartItem)=>{
     try{
-        //console.log({ "userId":userId, "cartItem":cartItem });
         const result = await axios.post(BASE_URL + '/orders/ReduceQuantity', { "userId": userId, "cartItem": cartItem });
         return result.data;
     }catch(error){

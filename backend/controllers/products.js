@@ -7,7 +7,7 @@ export const Findproducts = async (req, res) => {
   res.send(products);
 };
 
-export const UpdateProducts=async (req,res)=>{
+export const UpdateProduct=async (req,res)=>{
   const productToUpdate=await Product.findOne(req.body.id);
   if(productToUpdate){
      const createdProduct= await productToUpdate.save();
@@ -16,13 +16,13 @@ export const UpdateProducts=async (req,res)=>{
   }
 }
 
-export const SaveProduct = async (req, res) => {
-    req.body.forEach(async (element) => {
-      const newproduct = new Product(element)
-      const product = await newproduct.save()
-      res.send(product)
-    });
-};
+// export const SaveProduct = async (req, res) => {
+//     req.body.forEach(async (element) => {
+//       const newproduct = new Product(element)
+//       const product = await newproduct.save()
+//       res.send(product)
+//     });
+// };
 
 export const DeleteProduct=async (req,res)=>{
   try {

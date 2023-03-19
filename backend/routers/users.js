@@ -6,4 +6,5 @@ const router=Router();
  router.post('/existUser',existUser);
  router.delete('/deleteuser',DeleteUser);
  
+ 
 export default router;
