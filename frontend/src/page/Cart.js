@@ -73,6 +73,7 @@ export const Cart = () => {
           if (result) {
             const promises = result.orderItems.map(async elm => {
               const productFetch = await Findproducts({ "id": elm.id });
+              console.log(productFetch);
               return {
                 id: elm.id,
                 quantity: elm.quantity,
