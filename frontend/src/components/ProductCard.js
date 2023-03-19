@@ -11,7 +11,6 @@ import { MyContext } from '../page/Store.js';
 export const ProductCard = ({ product, className, onHover }) => {
   const [contextValue, setContextValue] = useState({
     id: product.id,
-   
   });
 
   const updateContextValue = (updatedValue) => {
@@ -21,11 +20,11 @@ export const ProductCard = ({ product, className, onHover }) => {
     <MyContext.Provider value={{ value: contextValue, updateValue: updateContextValue }}>
     <div className={`card product-card ${className}`} onMouseEnter={onHover} onMouseLeave={onHover}>
        
-     <Link to={{ pathname: `/product/:${product.id}`, state: { id:product } }}> 
-      <img src={product.image} className="card-img-top" alt={product.name}/></Link>
+     <Link className='product-link' to={{ pathname: `/product/${product.id}`}}> 
+          <img src={product.image} className="card-img-top" alt={product.name} />
+      </Link>
       <div className="card-body">
-    
-      <Link to={{pathname:`/product/:${product.id}`, state: { id:product }}}>
+      <Link className='product-link' to={{pathname:`/product/${product.id}`}}>
         <h5 className="card-title">{product.name}</h5>
         <p className="card-text"> 
           <strong>Price:</strong> {product.price}$

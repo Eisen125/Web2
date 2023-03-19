@@ -12,7 +12,6 @@
     transform: scale(1.08);
     z-index: 10;
   }
-
   
   .product-card .card-img-top {
     width: 100%;
@@ -54,4 +53,9 @@
   .product-card .product-link{
     color: #212529;
     text-decoration: none;
+  }
+
+  .product-link {
+    text-decoration: none;
+    color: inherit;
   }
