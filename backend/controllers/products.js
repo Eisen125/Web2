@@ -50,14 +50,11 @@ export const searchProduct = async (req, res) => {
   try {
     const products = await Product.aggregate([
       { $match: query },
-      { $group: { _id: { brand: '$brand', category: '$category' }, products: { $push: '$$ROOT' } } },
+      { $group: { _id: { brand: '$brand', category: '$category' },products: { $push: '$$ROOT' } } },
       { $sort: { '_id.category': 1, '_id.brand': 1 } },
     ]);
-    /*brand: group._id.brand,
-    category: group._id.category,
-    products: group.products[0],*/
+   console.log(products);
     const productList = products.map((group) => ({
-      
       image: group.products[0].image,
       id: group.products[0].id,
       name: group.products[0].name,
@@ -67,7 +64,6 @@ export const searchProduct = async (req, res) => {
       category: group.products[0].category,
       brand: group.products[0].brand
     }));
-
     res.json(productList);
   } catch (error) {
     res.status(400).send(error.message);

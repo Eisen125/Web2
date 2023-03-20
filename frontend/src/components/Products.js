@@ -22,14 +22,17 @@ const reducer = (state, action) => {
           return state;
   }
 }
+let c=(window.sessionStorage.getItem('category'))?window.sessionStorage.getItem('category'):"";
+let b=(window.sessionStorage.getItem('brand'))?window.sessionStorage.getItem('brand'):"";
+
+
 export const Products = () => {
   const { query } = useParams()
   const [state, dispatch] = useReducer(reducer, initialState);
   const [search,setSearch]=useState(query ? query : '');
-  const [category,setCategory]=useState('');
-  const [brand,setBrand]=useState('');
+  const [category,setCategory]=useState(c);
+  const [brand,setBrand]=useState(b);
   const [priceRange,setRange]=useState(0);
-
 
 
   useEffect(() => {
@@ -41,8 +44,7 @@ export const Products = () => {
 
       try {
         //{'search':search,"category":category,"brand":brand, "priceRange":priceRange}
-        const result = (search == category == brand == '') ? await Findproducts() : await searchProduct(search, category, brand, priceRange);
-        console.log(result);
+          const result = (search == category == brand == '') ? await Findproducts() : await searchProduct(search,category,brand,priceRange);
           result.forEach(elm => {
             payload.push({
               image: elm.image,
@@ -64,12 +66,15 @@ export const Products = () => {
     fetchData();
   }, []);
   
+  
+
   return (
     <div className="content-area store-page">
       {/* left side */}
       <div className="store-page-left">
         <h4>Category</h4>
-        <select onChange={(e)=>{
+        <select value={category} onChange={(e)=>{
+          window.sessionStorage.setItem('category',e.target.value);
           setCategory(e.target.value);
         }}>
           <option value="">All</option>
@@ -80,7 +85,8 @@ export const Products = () => {
         <hr />
         
         <h4>Brand</h4>
-        <select onChange={(e)=>{
+        <select value={brand} onChange={(e)=>{
+           window.sessionStorage.setItem('brand',e.target.value);
           setBrand(e.target.value);
         }}>
           <option value="">All</option>

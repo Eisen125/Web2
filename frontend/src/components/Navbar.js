@@ -11,16 +11,24 @@ import { searchProduct } from '../apiCalls';
 
 export const Navbar = (props) => {
   const [logged, setLogged] = useState(localStorage.getItem('logged'));
-   const [query,setQuery]=useState('')
-   
+  const [query,setQuery]=useState('')
+  
+  function refreshPage() {
+    setTimeout(()=>{
+        window.location.reload(true);
+    }, 500);
+    
+}
 
    const hendleChange=(e)=>{
     e.preventDefault(); 
-  
-    setQuery(e.target.value);
+    
+     setQuery(e.target.value);
    }
+
   useEffect(() => {
     setLogged(localStorage.getItem('logged') != null ? localStorage.getItem('logged') : false);
+    
   }, []);
 
   const changeLog = () => {
@@ -73,8 +81,9 @@ export const Navbar = (props) => {
                   aria-label="Search"
                 />
                 <div className="input-group-append">
-                <Link to={{pathname:`/products/${query}`}}>
+                <Link to={{pathname:`/products/${query}`}} onClick={refreshPage}>
                   <button className="btn btn-outline-secondary" type="submit">
+                    
                     <i className="fas fa-search">Search</i>
                   </button>
                   </Link>
@@ -105,7 +114,6 @@ export const Navbar = (props) => {
                 </div>
               </Link>
             }
-              
             </li>
           </ul>
         </div>
