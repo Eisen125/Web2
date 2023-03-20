@@ -41,7 +41,8 @@ export const Products = () => {
 
       try {
         //{'search':search,"category":category,"brand":brand, "priceRange":priceRange}
-          const result = (search == category == brand == '') ? await Findproducts() : await searchProduct(search,category,brand,priceRange);
+        const result = (search == category == brand == '') ? await Findproducts() : await searchProduct(search, category, brand, priceRange);
+        console.log(result);
           result.forEach(elm => {
             payload.push({
               image: elm.image,

@@ -40,37 +40,36 @@ export const AddNewProduct= async (req,res)=>{
 
 
 export const searchProduct = async (req, res) => {
-  const { search, category, brand, priceRange } = req.body;
-  console.log("from backend",search, category, brand, priceRange );
+  const { search } = req.body;
   const query = {};
+
   if (search != '') {
     query.name = { $regex: search, $options: 'i' };
   }
-  if (category != '') {
-    query.category = category;
+
+  try {
+    const products = await Product.aggregate([
+      { $match: query },
+      { $group: { _id: { brand: '$brand', category: '$category' }, products: { $push: '$$ROOT' } } },
+      { $sort: { '_id.category': 1, '_id.brand': 1 } },
+    ]);
+    /*brand: group._id.brand,
+    category: group._id.category,
+    products: group.products[0],*/
+    const productList = products.map((group) => ({
+      
+      image: group.products[0].image,
+      id: group.products[0].id,
+      name: group.products[0].name,
+      views: group.products[0].views,
+      price: group.products[0].price,
+      description: group.products[0].description,
+      category: group.products[0].category,
+      brand: group.products[0].brand
+    }));
+
+    res.json(productList);
+  } catch (error) {
+    res.status(400).send(error.message);
   }
-  if (brand != '') {
-    query.brand = brand;
-  }
-  /*if (priceRange) {
-    const [minPrice, maxPrice] = priceRange.split('-');
-    query.price = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) };
-  }
-    const products = await Product.find();
-    console.log("wtf",products);
-    res.send(products);
-    */
-    try {
-      const products = await Product.aggregate([
-        { $match: query },
-        { $group: { _id: '$category', products: { $push: '$$ROOT' } } },
-        { $sort: { _id: 1 } },
-      ]);
-      res.json(products);
-    } catch (error) {
-      res.status(400).send(error.message);
-    }
 };
-
-
-
