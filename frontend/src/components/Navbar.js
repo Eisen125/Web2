@@ -30,7 +30,7 @@ export const Navbar = (props) => {
     <nav className="navbar navbar-expand-lg navbar-light">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          <h1 className="logo">Shop Now</h1>
+          <h1 className="logo"><img src={process.env.PUBLIC_URL + 'WE SHOES.png'} alt="Shop Now" /></h1>
         </Link>
         <button
           className="navbar-toggler"
