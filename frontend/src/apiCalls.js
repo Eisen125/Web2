@@ -44,6 +44,15 @@ export const Findproducts=async(filter)=>{
     }
 }
 
+export const searchProduct=async(query)=>{
+    console.log(query);
+    try {
+        const result = await axios.get(BASE_URL + '/products', { "filter": query });
+        return result.data
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export const UpdateProduct = async (id, quantity) => {
     try{

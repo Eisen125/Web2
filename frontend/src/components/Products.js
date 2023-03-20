@@ -1,5 +1,7 @@
+
 import React from 'react'
 import { useReducer,useEffect } from "react"; 
+import { useParams } from 'react-router-dom';
 import {Findproducts} from "../apiCalls.js"
 import '../styles/AllProducts.css';
 import { ItemDisplay } from './ItemDisplay.js';
@@ -21,6 +23,7 @@ const reducer = (state, action) => {
   }
 }
 export const Products = () => {
+  const {}=useParams()
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +31,7 @@ export const Products = () => {
       
       dispatch({ type: 'SET_LOADING' });
       const payload = []
+
       try {
           const result = await Findproducts()
           result.forEach(elm => {
@@ -50,9 +54,7 @@ export const Products = () => {
     };
     fetchData();
   }, []);
-  //<div className='content-area'>
-  //<Slider name={'all products'} array={state.allProducts} loading={state.loading} ></Slider>
-  //</div>
+  
   return (
     <div className="content-area store-page">
       {/* left side */}

@@ -7,16 +7,17 @@ import { faShoppingCart, faSignOutAlt, faSignInAlt } from '@fortawesome/free-sol
 import '../styles/Navbar.css';
 import { changeState } from '../page/Store.js'
 import {useNavigate} from 'react-router-dom'
+import { searchProduct } from '../apiCalls';
 
 export const Navbar = (props) => {
 
   const [logged, setLogged] = useState(localStorage.getItem('logged'));
-  const navigate = useNavigate();
-  const [query, setQuery] = useState('');
-  const submitHandler = (e) => {
-    e.preventDefault();
-    navigate(query ? `/search/?query=${query}` : '/search');
-  };
+   const [query,setQuery]=useState('')
+   console.log(query);
+   const hendleSubmit=(e)=>{
+   console.log(query);
+    setQuery(e.target.value);
+   }
   useEffect(() => {
     setLogged(localStorage.getItem('logged') != null ? localStorage.getItem('logged') : false);
   }, []);
@@ -66,18 +67,20 @@ export const Navbar = (props) => {
               <div className="input-group">
                 <input className="form-control"
                   type="search"
-                  onSubmit={submitHandler}
+                  onChange={(e)=>{hendleSubmit( e.target.value)}}
                   placeholder="Checkout our collection.."
                   aria-label="Search"
-                  onChange={(e)=>setQuery(e.target.value)}
                 />
                 <div className="input-group-append">
+                <Link to={{pathname:`/products/${query}`}}>
                   <button className="btn btn-outline-secondary" type="submit">
                     <i className="fas fa-search">Search</i>
                   </button>
+                  </Link>
                 </div>
               </div>
             </form>
+            
           </ul>
           <ul className="navbar-nav">
             <li className="nav-item">

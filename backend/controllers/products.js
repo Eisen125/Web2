@@ -2,6 +2,7 @@ import Product from '../models/productModel.js'
 
 export const Findproducts = async (req, res) => {
   let { filter } = req.body;
+  
   const products = await Product.find(filter);
   // console.log("this is from find",products);
   res.send(products);
@@ -40,9 +41,10 @@ export const AddNewProduct= async (req,res)=>{
 }
 
 
-export const searchProduct = async (req, res, next) => {
-  const { search, category, brand, priceRange } = req.query;
-  const query = {};
+export const searchProduct = async (req, res) => {
+  // const { search, category, brand, priceRange } = req.body;
+  // const query = {};
+  const {filter}=req.body
   if (search) {
     query.name = { $regex: search, $options: 'i' };
   }
@@ -56,7 +58,6 @@ export const searchProduct = async (req, res, next) => {
     const [minPrice, maxPrice] = priceRange.split('-');
     query.price = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) };
   }
-
   try {
     const products = await Product.aggregate([
       { $match: query },
@@ -65,7 +66,7 @@ export const searchProduct = async (req, res, next) => {
     ]);
     res.json(products);
   } catch (error) {
-    next(error);
+    res.status(400).send(err.message);
   }
 };
 
