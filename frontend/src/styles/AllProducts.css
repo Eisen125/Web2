@@ -1,0 +1,29 @@
+.store-page {
+    display: flex;
+}
+
+.store-page-left {
+    position: fixed;
+    flex-basis: 15%;
+    padding: 1rem;
+}
+
+.store-page-right {
+    flex-basis: 85%;
+    padding: 1rem;
+    margin-left: 17%;
+}
+  
+.store-page h4 {
+    color: #008491;
+}
+
+.store-page select {
+    color: #333333;
+}
+
+@media only screen and (max-width: 768px) {
+    .store-page-right {
+      margin-left: 35%;
+    }
+  }
