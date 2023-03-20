@@ -1,6 +1,8 @@
-import React from 'react'
+
+import React, { useState } from 'react'
 import { useReducer,useEffect } from "react"; 
-import {Findproducts} from "../apiCalls.js"
+import { useParams } from 'react-router-dom';
+import {Findproducts, searchProduct} from "../apiCalls.js"
 import '../styles/AllProducts.css';
 import { ItemDisplay } from './ItemDisplay.js';
 
@@ -20,16 +22,29 @@ const reducer = (state, action) => {
           return state;
   }
 }
+let c=(window.sessionStorage.getItem('category'))?window.sessionStorage.getItem('category'):"";
+let b=(window.sessionStorage.getItem('brand'))?window.sessionStorage.getItem('brand'):"";
+
+
 export const Products = () => {
+  const { query } = useParams()
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [search,setSearch]=useState(query ? query : '');
+  const [category,setCategory]=useState(c);
+  const [brand,setBrand]=useState(b);
+  const [priceRange,setRange]=useState(0);
+
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'SET_ALL_PRODUCTS' });
       
       dispatch({ type: 'SET_LOADING' });
       const payload = []
+
       try {
-          const result = await Findproducts()
+        //{'search':search,"category":category,"brand":brand, "priceRange":priceRange}
+          const result = (search == category && category == brand && brand == '') ? await Findproducts() : await searchProduct(search,category,brand,priceRange);
           result.forEach(elm => {
             payload.push({
               image: elm.image,
@@ -50,25 +65,31 @@ export const Products = () => {
     };
     fetchData();
   }, []);
-  //<div className='content-area'>
-  //<Slider name={'all products'} array={state.allProducts} loading={state.loading} ></Slider>
-  //</div>
+  
+  
+
   return (
     <div className="content-area store-page">
       {/* left side */}
       <div className="store-page-left">
         <h4>Category</h4>
-        <select onChange=''>
-          <option value="default">All</option>
-          <option value="woman">Women Shoes</option>
-          <option value="men">Men Shoes</option>
-          <option value="men">Kids Shoes</option>
+        <select value={category} onChange={(e)=>{
+          window.sessionStorage.setItem('category',e.target.value);
+          setCategory(e.target.value);
+        }}>
+          <option value="">All</option>
+          <option value="womens-shoes">Women Shoes</option>
+          <option value="mens-shoes">Men Shoes</option>
+          <option value="kids-shoes">Kids Shoes</option>
         </select>
         <hr />
         
         <h4>Brand</h4>
-        <select onChange=''>
-          <option value="default">All</option>
+        <select value={brand} onChange={(e)=>{
+          window.sessionStorage.setItem('brand',e.target.value);
+          setBrand(e.target.value);
+        }}>
+          <option value="">All</option>
           <option value="The Warehouse">The Warehouse</option>
           <option value="Sunset">Sunset</option>
           <option value="Maasai Sandals">Maasai Sandals</option>

@@ -22,17 +22,17 @@ const reducer=(state,action)=>{
       return state;
   }
 }
-let i=[]
+
 export const Product = () => {
   const { id } = useParams();
-  const { value, updateValue } = useContext(MyContext);
+  // const { value, updateValue } = useContext(MyContext);
   const [state,dispatch]=useReducer(reducer, initialState);
   
    useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'SET_PRODUCT' });
       dispatch({ type: 'SET_IS_LOADING' });      
-      const payload = []
+      // const payload = []
       try {
         const result = await Findproducts({"id":id});
         if(result){

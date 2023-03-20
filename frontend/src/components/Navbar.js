@@ -7,30 +7,40 @@ import { faShoppingCart, faSignOutAlt, faSignInAlt } from '@fortawesome/free-sol
 import '../styles/Navbar.css';
 import { changeState } from '../page/Store.js'
 import {useNavigate} from 'react-router-dom'
+import { searchProduct } from '../apiCalls';
 
 export const Navbar = (props) => {
-
   const [logged, setLogged] = useState(localStorage.getItem('logged'));
-  const navigate = useNavigate();
-  const [query, setQuery] = useState('');
-  const submitHandler = (e) => {
-    e.preventDefault();
-    navigate(query ? `/search/?query=${query}` : '/search');
-  };
+  const [query,setQuery]=useState('')
+  
+  function refreshPage() {
+    setTimeout(()=>{
+        window.location.reload(true);
+    }, 500);
+    
+}
+
+   const hendleChange=(e)=>{
+    e.preventDefault(); 
+    
+     setQuery(e.target.value);
+   }
+
   useEffect(() => {
     setLogged(localStorage.getItem('logged') != null ? localStorage.getItem('logged') : false);
+    
   }, []);
 
   const changeLog = () => {
     changeState('');
     setLogged(null);
   };
-  
+  //<img src={process.env.PUBLIC_URL + 'WE SHOES.png'} alt="Shop Now" />
   return (
     <nav className="navbar navbar-expand-lg navbar-light">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          <h1 className="logo"><img src={process.env.PUBLIC_URL + 'WE SHOES.png'} alt="Shop Now" /></h1>
+          <h1 className="logo">Shop Now</h1>
         </Link>
         <button
           className="navbar-toggler"
@@ -65,19 +75,22 @@ export const Navbar = (props) => {
             <form className="nav-item search-bar">
               <div className="input-group">
                 <input className="form-control"
-                  type="search"
-                  onSubmit={submitHandler}
+                  type="text"
+                  onChange={hendleChange}
                   placeholder="Checkout our collection.."
                   aria-label="Search"
-                  onChange={(e)=>setQuery(e.target.value)}
                 />
                 <div className="input-group-append">
+                <Link to={{pathname:`/products/${query}`}} onClick={refreshPage}>
                   <button className="btn btn-outline-secondary" type="submit">
+                    
                     <i className="fas fa-search">Search</i>
                   </button>
+                  </Link>
                 </div>
               </div>
             </form>
+            
           </ul>
           <ul className="navbar-nav">
             <li className="nav-item">
@@ -101,7 +114,6 @@ export const Navbar = (props) => {
                 </div>
               </Link>
             }
-              
             </li>
           </ul>
         </div>

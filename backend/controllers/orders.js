@@ -101,7 +101,6 @@ export const RemoveOrderItem = async (req, res) => {
     order.orderItems = order.orderItems.filter(obj => obj.id !== cartItem.product.id);
       const updatedOrder = await order.save();
       res.status(201).json(updatedOrder);
-      res.send({ message: "Ordered Item Deleted" })
     } else {
       res.status(404).send({ message: 'Ordered Item Not Found' });
     } 

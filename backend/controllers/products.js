@@ -3,7 +3,6 @@ import Product from '../models/productModel.js'
 export const Findproducts = async (req, res) => {
   let { filter } = req.body;
   const products = await Product.find(filter);
-  // console.log("this is from find",products);
   res.send(products);
 };
 
@@ -35,39 +34,47 @@ export const AddNewProduct= async (req,res)=>{
     res.send(createdProduct)
   }
   else{
-    res.send("product has alredy created");
+    res.send("product was alredy created");
   }
 }
 
 
-export const searchProduct = async (req, res, next) => {
-  const { search, category, brand, priceRange } = req.query;
+export const searchProduct = async (req, res) => {
+  const { search, category, brand, priceRange } = req.body;
+
   const query = {};
-  if (search) {
+
+  if (search != '') {
     query.name = { $regex: search, $options: 'i' };
-  }
-  if (category) {
-    query.category = category;
-  }
-  if (brand) {
-    query.brand = brand;
-  }
-  if (priceRange) {
-    const [minPrice, maxPrice] = priceRange.split('-');
-    query.price = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) };
   }
 
   try {
     const products = await Product.aggregate([
       { $match: query },
-      { $group: { _id: '$category', products: { $push: '$$ROOT' } } },
-      { $sort: { _id: 1 } },
+      { $group: { _id: { brand: '$brand', category: '$category' },products: { $push: '$$ROOT' } } },
+      { $sort: { '_id.category': 1, '_id.brand': 1 } },
     ]);
-    res.json(products);
+
+    let productList = products.map((group) => ({
+      image: group.products[0].image,
+      id: group.products[0].id,
+      name: group.products[0].name,
+      views: group.products[0].views,
+      price: group.products[0].price,
+      description: group.products[0].description,
+      category: group.products[0].category,
+      brand: group.products[0].brand
+    }));
+    
+    if (category != '') {
+      productList = productList.filter(item => item.category == category);
+    }
+    if (brand != '') {
+      productList = productList.filter(item => item.brand == brand);
+    }
+
+    res.json(productList);
   } catch (error) {
-    next(error);
+    res.status(400).send(error.message);
   }
 };
-
-
-
