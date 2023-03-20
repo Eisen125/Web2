@@ -30,7 +30,7 @@
           {/* <p>Description: {weatherData.description}</p>  */}
         </>
          ) : (
-          <p>Loading...</p>
+          'Loading...'
         )}
       <h2 className='footer-title'> visit us at social media</h2>
       <div className='social-container'>

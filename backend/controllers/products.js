@@ -13,7 +13,6 @@ export const UpdateProduct = async (req, res) => {
   if (productToUpdate) {
     productToUpdate.purchased += quantity;
     const updatedProduct = await productToUpdate.save();
-    console.log(updatedProduct);
     res.status(201).send({ message: "Updated Successfully" });
   } else {
     res.status(404).send({ message: 'Order Not Found' });
