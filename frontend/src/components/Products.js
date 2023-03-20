@@ -23,8 +23,9 @@ const reducer = (state, action) => {
   }
 }
 export const Products = () => {
-  const {query}=useParams()
+  const { query } = useParams()
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [search,setSearch]=useState(query ? query : '');
   const [category,setCategory]=useState('');
   const [brand,setBrand]=useState('');
   const [priceRange,setRange]=useState(0);
@@ -39,7 +40,8 @@ export const Products = () => {
       const payload = []
 
       try {
-          const result = await searchProduct({'search':query});
+        //{'search':search,"category":category,"brand":brand, "priceRange":priceRange}
+          const result = (search == category == brand == '') ? await Findproducts() : await searchProduct(search,category,brand,priceRange);
           result.forEach(elm => {
             payload.push({
               image: elm.image,
@@ -78,7 +80,7 @@ export const Products = () => {
         
         <h4>Brand</h4>
         <select onChange={(e)=>{
-          setBrand(e.target.value)
+          setBrand(e.target.value);
         }}>
           <option value="">All</option>
           <option value="The Warehouse">The Warehouse</option>

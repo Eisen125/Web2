@@ -2,9 +2,7 @@ import Product from '../models/productModel.js'
 
 export const Findproducts = async (req, res) => {
   let { filter } = req.body;
-  
   const products = await Product.find(filter);
-  // console.log("this is from find",products);
   res.send(products);
 };
 
@@ -36,7 +34,7 @@ export const AddNewProduct= async (req,res)=>{
     res.send(createdProduct)
   }
   else{
-    res.send("product has alredy created");
+    res.send("product was alredy created");
   }
 }
 
@@ -45,33 +43,33 @@ export const searchProduct = async (req, res) => {
   const { search, category, brand, priceRange } = req.body;
   console.log("from backend",search, category, brand, priceRange );
   const query = {};
-  if (search) {
+  if (search != '') {
     query.name = { $regex: search, $options: 'i' };
   }
-  if (category) {
+  if (category != '') {
     query.category = category;
   }
-  if (brand) {
+  if (brand != '') {
     query.brand = brand;
   }
-  if (priceRange) {
+  /*if (priceRange) {
     const [minPrice, maxPrice] = priceRange.split('-');
     query.price = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) };
   }
-  if(query=={}){
     const products = await Product.find();
+    console.log("wtf",products);
     res.send(products);
-  }
-  try {
-    const products = await Product.aggregate([
-      { $match: query },
-      { $group: { _id: '$category', products: { $push: '$$ROOT' } } },
-      { $sort: { _id: 1 } },
-    ]);
-    res.json(products);
-  } catch (error) {
-    res.status(400).send(err.message);
-  }
+    */
+    try {
+      const products = await Product.aggregate([
+        { $match: query },
+        { $group: { _id: '$category', products: { $push: '$$ROOT' } } },
+        { $sort: { _id: 1 } },
+      ]);
+      res.json(products);
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
 };
 
 
