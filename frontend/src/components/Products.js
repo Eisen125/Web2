@@ -44,7 +44,7 @@ export const Products = () => {
 
       try {
         //{'search':search,"category":category,"brand":brand, "priceRange":priceRange}
-          const result = (search == category == brand == '') ? await Findproducts() : await searchProduct(search,category,brand,priceRange);
+          const result = (search == category && category == brand && brand == '') ? await Findproducts() : await searchProduct(search,category,brand,priceRange);
           result.forEach(elm => {
             payload.push({
               image: elm.image,
@@ -86,7 +86,7 @@ export const Products = () => {
         
         <h4>Brand</h4>
         <select value={brand} onChange={(e)=>{
-           window.sessionStorage.setItem('brand',e.target.value);
+          window.sessionStorage.setItem('brand',e.target.value);
           setBrand(e.target.value);
         }}>
           <option value="">All</option>
