@@ -1,8 +1,8 @@
 import React from 'react'
 import { useReducer,useEffect } from "react"; 
 import {Findproducts} from "../apiCalls.js"
-import { Slider } from "../components/Slider";
-
+import '../styles/AllProducts.css';
+import { ItemDisplay } from './ItemDisplay.js';
 
 const initialState = {
   allProducts: [],
@@ -50,9 +50,45 @@ export const Products = () => {
     };
     fetchData();
   }, []);
+  //<div className='content-area'>
+  //<Slider name={'all products'} array={state.allProducts} loading={state.loading} ></Slider>
+  //</div>
   return (
-    <div className='content-area'>
-      <Slider name={'all products'} array={state.allProducts} loading={state.loading} ></Slider>
+    <div className="content-area store-page">
+      {/* left side */}
+      <div className="store-page-left">
+        <h4>Category</h4>
+        <select onChange=''>
+          <option value="default">All</option>
+          <option value="woman">Women Shoes</option>
+          <option value="men">Men Shoes</option>
+          <option value="men">Kids Shoes</option>
+        </select>
+        <hr />
+        
+        <h4>Brand</h4>
+        <select onChange=''>
+          <option value="default">All</option>
+          <option value="The Warehouse">The Warehouse</option>
+          <option value="Sunset">Sunset</option>
+          <option value="Maasai Sandals">Maasai Sandals</option>
+          <option value="Arrivals Genuine">Arrivals Genuine</option>
+          <option value="Sneakers">Sneakers</option>
+          <option value="SportyTech">SportyTech</option>
+          <option value="TrailMaster">TrailMaster</option>
+          <option value="Gentleman's Choice">Gentleman's Choice</option>
+          <option value="Cosmo Kicks">Cosmo Kicks</option>
+          <option value="Roma">Roma</option>
+          <option value="Winter Footwear">Winter Footwear</option>
+        </select>
+        <hr/>
+
+      </div>
+
+      {/* right side */}
+      <div className="store-page-right">
+      <ItemDisplay name={'Store Products'} array={state.allProducts} loading={state.loading} ></ItemDisplay>
+      </div>
     </div>
   )
 }
