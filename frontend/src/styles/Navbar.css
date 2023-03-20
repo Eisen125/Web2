@@ -9,12 +9,15 @@
   }
   
   .navbar-brand {
+    max-width: 50%;
     font-family: 'Nunito','Roboto', sans-serif;
     font-size: 28px;
     font-weight: bold;
   }
   
-  .logo {
+  .logo img{
+    max-width: 4.6rem;
+    transform: scale(1.95);
     font-size: xx-large;
     margin: 0;
   }
