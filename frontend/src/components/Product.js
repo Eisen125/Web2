@@ -44,7 +44,7 @@ export const Product = () => {
               views: elm.views,
               price: elm.price,
               description: elm.description,
-              catagory: elm.category,
+              category: elm.category,
               brand: elm.brand,
               purchased: elm.purchased}
           })

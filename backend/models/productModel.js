@@ -28,12 +28,16 @@ const productSchema = new mongoose.Schema(
       type:Number,
       required:true,
     },
-    catagory:{
+    category:{
       type:String,
       required:true,
     },
     brand:{
       type:String,
+      required:true,
+    },
+    purchased:{
+      type:Number,
       required:true,
     }
 

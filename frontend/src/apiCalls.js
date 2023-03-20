@@ -45,10 +45,10 @@ export const Findproducts=async(filter)=>{
 }
 
 
-export const UpdateProduct=async(productId)=>{
+export const UpdateProduct = async (id, quantity) => {
     try{
-        const res=await axios.post(BASE_URL+'/products/updateProduct',productId)
-        return res.data
+        const res = await axios.post(BASE_URL + '/products/updateProduct', { "id": id, "quantity": quantity });
+        return res.data;
     } catch (error) {
         console.log(error);
     }
@@ -82,9 +82,9 @@ export const GetAllOrders = async (userId) => {
     }
 }
 
-export const DeleteOrder=async(userId,cartItem)=>{
+export const DeleteOrder = async (userId) => {
     try{
-        const res=await axios.delete(BASE_URL+'/orders/deleteOrder',{ "userId":userId, "cartItem":cartItem })
+        const res=await axios.post(BASE_URL+'/orders/deleteOrder',{ "userId":userId })
         return res.data;
     }catch(error){
         console.log(error);

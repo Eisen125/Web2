@@ -18,7 +18,7 @@ export async function addItemToCart(cartItem, target) {
     await CreateNewOrder(userId, cartItem);
   }
   else {
-    console.log("u are not logged in");
+    alert("Please Signup To Create New Purchases");
   }
   target.disabled = false;
 }

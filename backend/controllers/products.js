@@ -7,17 +7,18 @@ export const Findproducts = async (req, res) => {
   res.send(products);
 };
 
-export const UpdateProduct=async (req,res)=>{
-  const productToUpdate=await Product.findOne(req.body.id);
-  if(productToUpdate){
-     const createdProduct= await productToUpdate.save();
-     console.log(createdProduct);
-     res.status(201).send("updated successfully");
+export const UpdateProduct = async (req, res) => {
+  let { id, quantity } = req.body;
+  const productToUpdate = await Product.findOne({ "id": id });
+  if (productToUpdate) {
+    productToUpdate.purchased += quantity;
+    const updatedProduct = await productToUpdate.save();
+    console.log(updatedProduct);
+    res.status(201).send({ message: "Updated Successfully" });
+  } else {
+    res.status(404).send({ message: 'Order Not Found' });
   }
 }
-
-
-
 
 export const DeleteProduct=async (req,res)=>{
   try {
