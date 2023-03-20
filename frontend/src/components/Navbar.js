@@ -10,12 +10,13 @@ import {useNavigate} from 'react-router-dom'
 import { searchProduct } from '../apiCalls';
 
 export const Navbar = (props) => {
-
   const [logged, setLogged] = useState(localStorage.getItem('logged'));
    const [query,setQuery]=useState('')
-   console.log(query);
-   const hendleSubmit=(e)=>{
-   console.log(query);
+   
+
+   const hendleChange=(e)=>{
+    e.preventDefault(); 
+  
     setQuery(e.target.value);
    }
   useEffect(() => {
@@ -66,8 +67,8 @@ export const Navbar = (props) => {
             <form className="nav-item search-bar">
               <div className="input-group">
                 <input className="form-control"
-                  type="search"
-                  onChange={(e)=>{hendleSubmit( e.target.value)}}
+                  type="text"
+                  onChange={hendleChange}
                   placeholder="Checkout our collection.."
                   aria-label="Search"
                 />

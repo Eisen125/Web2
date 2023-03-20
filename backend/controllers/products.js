@@ -42,9 +42,9 @@ export const AddNewProduct= async (req,res)=>{
 
 
 export const searchProduct = async (req, res) => {
-  // const { search, category, brand, priceRange } = req.body;
-  // const query = {};
-  const {filter}=req.body
+  const { search, category, brand, priceRange } = req.body;
+  console.log("from backend",search, category, brand, priceRange );
+  const query = {};
   if (search) {
     query.name = { $regex: search, $options: 'i' };
   }
@@ -57,6 +57,10 @@ export const searchProduct = async (req, res) => {
   if (priceRange) {
     const [minPrice, maxPrice] = priceRange.split('-');
     query.price = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) };
+  }
+  if(query=={}){
+    const products = await Product.find();
+    res.send(products);
   }
   try {
     const products = await Product.aggregate([
