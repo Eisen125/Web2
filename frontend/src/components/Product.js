@@ -78,7 +78,8 @@ export const Product = () => {
           <img className="single-product-img" src={state.product.image} alt=""></img>
           <p className="single-product-price">price:{state.product.price}$</p>
         </div>
-        <div className="single-product-right">
+              <div className="single-product-right">
+              <p className="single-product-info"><strong>Product by: </strong>{state.product.brand}</p>
           <p className="single-product-info">{state.product.description}</p>
         </div>
         <div className="single-product-btn-container">

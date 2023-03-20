@@ -130,7 +130,7 @@ export const Cart = () => {
             <p>It seems like your cart is empty.</p>
             <p>Treat your self to our</p>
             <p><span>Fancy Shoes!</span></p>
-            <Link to="/products"><button className="btn btn-primary">Shop now</button></Link>
+            <Link to="/products"><button className="reg-btn btn-primary">Shop now</button></Link>
           </div> :
           <div className="cart-page">
             <div className="cart-items">
