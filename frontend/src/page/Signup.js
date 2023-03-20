@@ -18,7 +18,7 @@ export const Signup = () => {
       email,
       password,
     });
-    console.log(res, "this is from signup");
+    
     if (typeof res !== 'string') {
       const resForId = await existUser({email,password});
       changeState(resForId.userId);

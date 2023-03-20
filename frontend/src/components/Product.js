@@ -3,7 +3,7 @@ import {Findproducts} from '../apiCalls'
 import { useParams } from 'react-router-dom';
 import { MyContext } from '../page/Store.js';
 import { addItemToCart } from "../page/Store.js";
-import { Slider } from "./Slider";
+import '../styles/SingleProduct.css';
 
 const initialState={
   featuredProducts:[],
@@ -28,7 +28,6 @@ export const Product = () => {
   const { value, updateValue } = useContext(MyContext);
   const [state,dispatch]=useReducer(reducer, initialState);
   
- console.log( "this is from product",id);
    useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'SET_PRODUCT' });
@@ -51,7 +50,6 @@ export const Product = () => {
           const payload= await Promise.all(promises)
           dispatch({ type: 'SET_PRODUCT', payload: payload[0]});
         }
-          console.log("res",result);
          
           dispatch({type: 'SET_LOADED'})
         } catch (error) {
@@ -60,26 +58,35 @@ export const Product = () => {
     };
     fetchData();
   }, []);
- console.log(state.product);
 
   return (
-    <div  className="content-area">
-        {state.loading ?
-          <div className="product-empty">
-            <h2>loading...</h2> </div> :
-            (state.product.length==0? <div className="product-empty">
-              <p>no item selected</p></div>:
-              <div className="product-page">
-                <h1>product page</h1>
-                <h2 className="product-title">title:{state.product.name}</h2>
-                <img className="product=img" src={state.product.image} alt=""></img>
-                <p className="product-price">price:{state.product.price}$</p>
-                <p className="product-info">description:{state.product.description}</p>
-                <button className="btn btn-primary" onClick={(event)=>{addItemToCart(state.product,event.target)}}>Add to cart</button>
+    <div className="content-area">
+      {state.loading ? (
+        <div className="single-product-empty">
+          <h2>loading...</h2>
+        </div>
+      ) : state.product.length === 0 ? (
+        <div className="single-product-empty">
+          <p>no item selected</p>
+        </div>
+      ) : (
+        <div className="single-product-page">
+          <div className="single-product-title-container">
+          <h2 className="single-product-title">{state.product.name}</h2>
+        </div>
+        <div className="single-product-left">
+          <img className="single-product-img" src={state.product.image} alt=""></img>
+          <p className="single-product-price">price:{state.product.price}$</p>
+        </div>
+        <div className="single-product-right">
+          <p className="single-product-info">{state.product.description}</p>
+        </div>
+        <div className="single-product-btn-container">
+          <button className="single-product-btn btn-primary" onClick={(event)=>{addItemToCart(state.product,event.target)}}>Add to cart</button>
+        </div>
+      </div>
 
-              </div> 
-              ) 
-      }
+      )}
     </div>
   );
 }
