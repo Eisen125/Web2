@@ -14,7 +14,7 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-      case 'SET_FEATURED_PRODUCTS':
+      case 'SET_FEATURED_ITEMS':
           return { ...state, featuredProducts: action.payload };
       case 'SET_RECENTLY_VIEWED':
           return { ...state, recentlyViewed: action.payload };
@@ -35,7 +35,7 @@ export const Home = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'SET_RECENTLY_VIEWED' });
+      dispatch({ type: 'SET_FEATURED_ITEMS' });
       dispatch({ type: 'SET_NOW_TRENDING' });
       dispatch({ type: 'SET_BEST_SELLING' });
       dispatch({ type: 'SET_LOADING' });
@@ -59,7 +59,7 @@ export const Home = () => {
         });
         //}
        
-        dispatch({ type: 'SET_RECENTLY_VIEWED', payload: payload.slice(0, 20) });
+        dispatch({ type: 'SET_FEATURED_ITEMS', payload: payload.slice(0, 20) });
         dispatch({ type: 'SET_NOW_TRENDING', payload: payload.slice().sort((item1, item2) => item2.views - item1.views).slice(0, 20) });
         dispatch({ type: 'SET_BEST_SELLING', payload: payload.slice().sort((item1, item2) => item2.purchased - item1.purchased).slice(0, 20) });
         dispatch({ type: 'SET_LOADED' })
@@ -79,9 +79,9 @@ export const Home = () => {
   
   return (
     <div className="home-container content-area">
-      <Slider name={'Recently Viewed'} array={state.recentlyViewed} loading={state.loading} />
+      <Slider name={'Featured Items'} array={state.featuredProducts} loading={state.loading} />
       <Slider name={'Now Trending'} array={state.nowTrending} loading={state.loading} />
-      <Slider name={'Best Selling'} array={state.bestSelling} loading={state.loading} />
+      <Slider name={'Best Sellers'} array={state.bestSelling} loading={state.loading} />
     </div>
   );
 };
