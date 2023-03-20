@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect, useState } from "react";
-import { Findproducts, GetAllOrders } from "../apiCalls.js";
+import { DeleteOrder, Findproducts, GetAllOrders, UpdateProduct } from "../apiCalls.js";
 import { reduceItemQuantity, addItemToCart, removeItem } from './Store.js';
 import { Link } from 'react-router-dom';
 import '../styles/Cart.css';
@@ -61,6 +61,23 @@ export const Cart = () => {
     setSubTotal(subTotal - (item.product.price * quantities[item.product.id]));
     target.disabled = false;
   }
+
+  const checkout = async (target) => {
+    try {
+      target.disabled = true;
+      await Promise.all(state.cart.map(async (elm) => {
+        await UpdateProduct(elm.id, elm.quantity);
+      }));
+      await DeleteOrder(localStorage.getItem('userId'));
+      dispatch({ type: 'SET_CART', payload: [] });
+      alert('Purchase Complete');
+      target.disabled = false;
+    } catch (error) {
+      console.log(error);
+      target.disabled = false;
+    }
+  };
+  
   
   useEffect(() => {
     const fetchData = async () => {
@@ -70,7 +87,7 @@ export const Cart = () => {
       try {
         if (localStorage.getItem('logged') && localStorage.getItem('userId') !== null && localStorage.getItem('userId') !== '') {
           const result = await GetAllOrders(localStorage.getItem('userId'));
-          if (result) {
+          if (result && typeof result != 'string') {
             const promises = result.orderItems.map(async elm => {
               const productFetch = await Findproducts({ "id": elm.id });
               return {
@@ -87,6 +104,9 @@ export const Cart = () => {
             setQuantities(newQuantities);
             dispatch({ type: 'SET_CART', payload: payload });
             setSubTotal(payload.reduce((acc, item) => acc + (item.product.price * item.quantity), 0));
+            dispatch({ type: 'SET_LOADED' })
+          } else {
+            dispatch({ type: 'SET_CART', payload: [] });
             dispatch({ type: 'SET_LOADED' })
           }
         }
@@ -133,7 +153,7 @@ export const Cart = () => {
                     </div>
                   </div>
                   <div className="cart-card-remove">
-                    <button onClick={(event) => handleRemove(item,event.target)}><FontAwesomeIcon icon={faXmark}/></button>
+                    <button onClick={(event) => handleRemove(item ,event.target)}><FontAwesomeIcon icon={faXmark}/></button>
                   </div>
                 </div>
               </div>
@@ -149,7 +169,7 @@ export const Cart = () => {
                 <span>{tax.toFixed(2)}$</span>
                 <p>Total:</p>
                 <span>{total.toFixed(2)}$</span>
-                <button>Checkout</button>
+                <button onClick={(event)=> checkout(event.target)}>Checkout</button>
               </div>
             </div>
           </div>

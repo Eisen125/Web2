@@ -41,30 +41,28 @@ export const Home = () => {
       dispatch({ type: 'SET_LOADING' });
       const payload = []
       try {
-        //const categories = ["womens-shoes", "mens-shoes"]
-        //for (const catagory of categories) {
-          //const dummyresult = await axios.get('https://dummyjson.com/products/category/' + catagory + '?limit=20');
-          const result = await Findproducts();
+        
+        const result = await Findproducts();
 
-          result.forEach(elm => {
-            payload.push({
-              image: elm.image,
-              id: elm.id,
-              name: elm.name,
-              views: elm.views,
-              price: elm.price,
-              description: elm.description,
-              catagory: elm.category,
-              brand: elm.brand,
-              purchased: elm.purchased
-            })
-          });
+        result.forEach(elm => {
+          payload.push({
+            image: elm.image,
+            id: elm.id,
+            name: elm.name,
+            views: elm.views,
+            price: elm.price,
+            description: elm.description,
+            category: elm.category,
+            brand: elm.brand,
+            purchased: elm.purchased
+          })
+        });
         //}
        
-        dispatch({ type: 'SET_RECENTLY_VIEWED', payload: payload.slice(0,20) });
-        dispatch({ type: 'SET_NOW_TRENDING', payload: payload.slice().sort((item1,item2) => item2.views - item1.views).slice(0,20) });
-        dispatch({ type: 'SET_BEST_SELLING', payload: payload.slice().sort((item1,item2) => item2.purchased - item1.purchased).slice(0,20) });
-        dispatch({type: 'SET_LOADED'})
+        dispatch({ type: 'SET_RECENTLY_VIEWED', payload: payload.slice(0, 20) });
+        dispatch({ type: 'SET_NOW_TRENDING', payload: payload.slice().sort((item1, item2) => item2.views - item1.views).slice(0, 20) });
+        dispatch({ type: 'SET_BEST_SELLING', payload: payload.slice().sort((item1, item2) => item2.purchased - item1.purchased).slice(0, 20) });
+        dispatch({ type: 'SET_LOADED' })
         /*console.log(state.recentlyViewed);
         console.log( 'payload',JSON.parse(payload));
         const featured = await axios.get('api/products');
@@ -81,10 +79,9 @@ export const Home = () => {
   
   return (
     <div className="home-container content-area">
-      <Slider name={'Recently Viewed'} array={state.recentlyViewed} loading={state.loading} /> 
+      <Slider name={'Recently Viewed'} array={state.recentlyViewed} loading={state.loading} />
       <Slider name={'Now Trending'} array={state.nowTrending} loading={state.loading} />
       <Slider name={'Best Selling'} array={state.bestSelling} loading={state.loading} />
     </div>
   );
 };
-

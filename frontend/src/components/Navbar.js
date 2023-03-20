@@ -6,11 +6,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Navbar.css';
 import { changeState } from '../page/Store.js'
+import {useNavigate} from 'react-router-dom'
 
 export const Navbar = (props) => {
 
   const [logged, setLogged] = useState(localStorage.getItem('logged'));
-
+  const navigate = useNavigate();
+  const [query, setQuery] = useState('');
+  const submitHandler = (e) => {
+    e.preventDefault();
+    navigate(query ? `/search/?query=${query}` : '/search');
+  };
   useEffect(() => {
     setLogged(localStorage.getItem('logged') != null ? localStorage.getItem('logged') : false);
   }, []);
@@ -60,8 +66,10 @@ export const Navbar = (props) => {
               <div className="input-group">
                 <input className="form-control"
                   type="search"
+                  onSubmit={submitHandler}
                   placeholder="Checkout our collection.."
                   aria-label="Search"
+                  onChange={(e)=>setQuery(e.target.value)}
                 />
                 <div className="input-group-append">
                   <button className="btn btn-outline-secondary" type="submit">
