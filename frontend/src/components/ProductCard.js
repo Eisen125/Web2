@@ -5,9 +5,6 @@ import '../styles/ProductCard.css';
 import { Link } from 'react-router-dom';
 import { MyContext } from '../page/Store.js';
 
-
-
-
 export const ProductCard = ({ product, className, onHover }) => {
   const [contextValue, setContextValue] = useState({
     id: product.id,

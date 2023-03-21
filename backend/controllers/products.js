@@ -40,7 +40,7 @@ export const AddNewProduct= async (req,res)=>{
 
 
 export const searchProduct = async (req, res) => {
-  const { search, category, brand, priceRange } = req.body;
+  const { search, category, brand, priceMinRange,priceMaxRange } = req.body;
 
   const query = {};
 
@@ -71,6 +71,9 @@ export const searchProduct = async (req, res) => {
     }
     if (brand != '') {
       productList = productList.filter(item => item.brand == brand);
+    }
+    if (priceMinRange && priceMaxRange) {
+      productList = productList.filter(item => priceMinRange <= item.price && item.price <= priceMaxRange);
     }
 
     res.json(productList);

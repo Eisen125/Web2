@@ -9,11 +9,14 @@ import { changeState } from '../page/Store.js'
 import {useNavigate} from 'react-router-dom'
 import { searchProduct } from '../apiCalls';
 
+let q = (window.sessionStorage.getItem('query')) ? window.sessionStorage.getItem('query') : '';
+
 export const Navbar = (props) => {
   const [logged, setLogged] = useState(localStorage.getItem('logged'));
-  const [query,setQuery]=useState('')
+  const [query,setQuery]=useState(q)
   
   function refreshPage() {
+
     setTimeout(()=>{
         window.location.reload(true);
     }, 500);
@@ -22,8 +25,8 @@ export const Navbar = (props) => {
 
    const hendleChange=(e)=>{
     e.preventDefault(); 
-    
-     setQuery(e.target.value);
+    window.sessionStorage.setItem('query',e.target.value)
+    setQuery(e.target.value);
    }
 
   useEffect(() => {
@@ -76,6 +79,7 @@ export const Navbar = (props) => {
               <div className="input-group">
                 <input className="form-control"
                   type="text"
+                  value={query}
                   onChange={hendleChange}
                   placeholder="Checkout our collection.."
                   aria-label="Search"
@@ -83,7 +87,6 @@ export const Navbar = (props) => {
                 <div className="input-group-append">
                 <Link to={{pathname:`/products/${query}`}} onClick={refreshPage}>
                   <button className="btn btn-outline-secondary" type="submit">
-                    
                     <i className="fas fa-search">Search</i>
                   </button>
                   </Link>
