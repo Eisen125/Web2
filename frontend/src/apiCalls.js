@@ -44,14 +44,14 @@ export const Findproducts=async(filter)=>{
     }
 }
 
-export const searchProduct = async (search, category, brand, priceRange) => {
-    
-    console.log("at api calls",search, category, brand, priceRange);
+export const searchProduct = async (search, category, brand,priceMinRange,priceMaxRange) => {
     try {
         const result = await axios.post(BASE_URL + '/products/search', { "search": search, 
-        "category":category,
-        "brand": brand,
-        "priceRange": priceRange});
+            "category":category,
+            "brand": brand,
+            "priceMinRange": priceMinRange,
+            "priceMaxRange": priceMaxRange
+        });
         return result.data
     } catch (error) {
         console.log(error);

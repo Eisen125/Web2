@@ -22,9 +22,12 @@ const reducer = (state, action) => {
           return state;
   }
 }
-let c=(window.sessionStorage.getItem('category'))?window.sessionStorage.getItem('category'):"";
-let b=(window.sessionStorage.getItem('brand'))?window.sessionStorage.getItem('brand'):"";
-
+let c = (window.sessionStorage.getItem('category')) ? window.sessionStorage.getItem('category') : "";
+let b = (window.sessionStorage.getItem('brand')) ? window.sessionStorage.getItem('brand') : "";
+let max = (window.sessionStorage.getItem('priceMaxRange')) ? window.sessionStorage.getItem('priceMaxRange') : 500;
+let min = (window.sessionStorage.getItem('priceMinRange')) ? window.sessionStorage.getItem('priceMinRange') : 1;
+let timeOutMax = null;
+let timeOutMin = null;
 
 export const Products = () => {
   const { query } = useParams()
@@ -32,8 +35,32 @@ export const Products = () => {
   const [search,setSearch]=useState(query ? query : '');
   const [category,setCategory]=useState(c);
   const [brand,setBrand]=useState(b);
-  const [priceRange,setRange]=useState(0);
-
+  const [priceMinRange,setMinRange]=useState(min);
+  const [priceMaxRange, setMaxRange] = useState(max);
+  
+  const handleMinPriceChange = event => {
+    const minPrice = Math.min(parseInt(event.target.value), priceMaxRange);
+    setMinRange(minPrice);
+    clearTimeout(timeOutMin);
+    timeOutMin = setTimeout(() => {
+      if (priceMinRange <= 10) {
+        setMinRange(1);
+      }
+      window.sessionStorage.setItem('priceMinRange', minPrice);
+    }, 500);
+  };
+  
+  const handleMaxPriceChange = event => {
+    const maxPrice = Math.max(parseInt(event.target.value), priceMinRange);
+    setMaxRange(maxPrice);
+    clearTimeout(timeOutMax);
+    timeOutMax = setTimeout(() => {
+      if (priceMaxRange >= 490) {
+        setMaxRange(500);
+      }
+      window.sessionStorage.setItem('priceMaxRange', maxPrice);
+    }, 500);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +71,7 @@ export const Products = () => {
 
       try {
         //{'search':search,"category":category,"brand":brand, "priceRange":priceRange}
-          const result = (search == category && category == brand && brand == '') ? await Findproducts() : await searchProduct(search,category,brand,priceRange);
+          const result = (search == category && category == brand && brand == '' && priceMinRange == 1 && priceMaxRange == 500) ? await Findproducts() : await searchProduct(search,category,brand,priceMinRange,priceMaxRange);
           result.forEach(elm => {
             payload.push({
               image: elm.image,
@@ -102,7 +129,35 @@ export const Products = () => {
           <option value="Roma">Roma</option>
           <option value="Winter Footwear">Winter Footwear</option>
         </select>
-        <hr/>
+        <hr />
+        <h4>Price Range</h4>
+        <div class="maxPrice-container">
+  <label for="maximum">max price: </label>
+  <input 
+    id="maximum" 
+    value={priceMaxRange} 
+    type="range" 
+    placeholder="Max price" 
+    min="1" 
+    max="500" 
+    onInput={handleMaxPriceChange} 
+  />
+  <output id="maxOut">{priceMaxRange}</output>
+</div>
+
+<div class="minPrice-container">
+  <label for="minimumn">min price: </label>
+  <input 
+    id="minimumn" 
+    value={priceMinRange} 
+    type="range" 
+    placeholder="Mix Price" 
+    min="1" 
+    max="500" 
+    onInput={handleMinPriceChange} 
+  />
+  <output id="minOut">{priceMinRange}</output>
+</div>
 
       </div>
 
