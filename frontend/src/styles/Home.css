@@ -1,0 +1,15 @@
+.home-container {
+  overflow: auto;
+  max-width: 100%;
+}
+
+.col {
+  display: flex;
+  align-items: center;
+}
+
+.home-container h2 {
+  font-size: x-large;
+  color: #008491;
+}
+ 
